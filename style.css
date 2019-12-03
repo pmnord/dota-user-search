@@ -1,6 +1,61 @@
 
+body {
+    margin-top: 200px;
+    text-align: center;
+}
+form {
+    margin: 0 auto;
+    margin-bottom: 21.44px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 500px;
+}
+li {
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+li:hover {
+    cursor: pointer;
+}
 
+li img {
+    height: 30px;
+}
+
+table{
+    margin: 0 auto;
+}
+th {
+    background-color: rgb(230,230,230);
+    border: solid 0.5px white;
+    padding: 1px;
+}
+td {
+    background-color: rgb(230,230,230);
+    border: solid 0.5px white;
+    padding: 1px;
+}
 
 footer {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
+    margin-top: 50px;
+}
+
+.greybox1 {
+    background-color: rgb(150,150,150);
+    border: solid 1px white;
+}
+.greybox2 {
+    background-color: rgb(180,180,180);
+    border: solid 1px white;
+}
+.greybox3 {
+    background-color: rgb(210,210,210);
+    border: solid 1px white;
 }
