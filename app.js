@@ -1,9 +1,15 @@
 
 
 
-// MODEL
+/* -------------------------------------------------------------------------- */
+/*                                  Model                                     */
+/* -------------------------------------------------------------------------- */
 
 const STORE = {};
+
+
+
+/* ---------------------------- Fetch player list --------------------------- */
 
 function getPlayerList (query) {
     query = encodeURIComponent(query);
@@ -21,12 +27,14 @@ function getPlayerList (query) {
     .catch(error => console.log(error))
 };
 
-function getPlayerData (accountID) {
+async function getPlayerData (accountID) {
 
-    // Object for storing player data retrieved in following fetches
-    const playerData = {};
+    // let promise = new Promise((resolve, reject) => {
 
-    // Fetch basic profile data
+    let playerData = [];
+
+/* ------------------------ Fetch basic profile data ------------------------ */
+
     fetch(`https://api.opendota.com/api/players/` + accountID)
     .then(response => {
         if (response.ok) {
@@ -35,25 +43,12 @@ function getPlayerData (accountID) {
             throw new Error(response.json());
         }
     })
-    .then(responseJSON => {
-        console.log('player profile data:', responseJSON);
-        displayPlayerData(responseJSON);})
+    .then(responseJSON => displayPlayerData(responseJSON))
     .catch(error => console.log(error))
+    
+/* -------------------------- Fetch win/loss record ------------------------- */
 
-    // Fetch win/loss record
     fetch(`https://api.opendota.com/api/players/${accountID}/wl`)
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error(response.json());
-        }
-    })
-    .then(responseJSON => console.log('win/loss data', responseJSON))
-    .catch(error => console.log(error))
-
-    // Fetch recent match data
-    fetch(`https://api.opendota.com/api/players/${accountID}/recentMatches`)
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -64,15 +59,32 @@ function getPlayerData (accountID) {
     .then(responseJSON => console.log(responseJSON))
     .catch(error => console.log(error))
 
+/* ------------------------- Fetch recent matches data ------------------------ */
+
+    fetch(`https://api.opendota.com/api/players/${accountID}/recentMatches`)
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error(response.json());
+        }
+    })
+    .then(responseJSON => console.log(responseJSON))
+    .catch(error => console.log(error));
 
 
-
+    // return resolve(playerData);
+    // })
+    // let result = await promise;
+    // console.log(result);
 
 
 
 }
 
-// VIEWS
+/* -------------------------------------------------------------------------- */
+/*                                    Views                                   */
+/* -------------------------------------------------------------------------- */
 
 function displaySearchResults (data) {
 
@@ -91,7 +103,7 @@ function displaySearchResults (data) {
         searchResults += `<li class="greybox1" id="${each.account_id}">
                             <img src="${each.avatarfull}" />
                             <p>${each.personaname}</p>
-                            <p>Last Match: ${each.last_match_time}</p>
+                            <p><strong>Last Match:</strong> ${new Date(each.last_match_time)}</p>
                             </li>`
     })
 
@@ -110,7 +122,7 @@ function displayPlayerData (data) {
 
     const playerData = `${searchForm}
                         <div class="player-data">
-                            <h2>${data.profile.personaname}</h2>
+                            <h2>${data.profile.profile.personaname}</h2>
 
                             <h3 class="greybox2">Profile</h3>
                             <table>
@@ -121,10 +133,10 @@ function displayPlayerData (data) {
                                     <th>Steam Account</th>
                                 </tr>
                                 <tr>
-                                    <td>${data.profile.loccountrycode}</td>
-                                    <td>${data.mmr_estimate.estimate}</td>
-                                    <td>${data.rank_tier}</td>
-                                    <td><a href="${data.profile.profileurl}" target="_blank">Link</a></td>
+                                    <td>${data.profile.profile.loccountrycode}</td>
+                                    <td>${data.profile.mmr_estimate.estimate}</td>
+                                    <td>${data.profile.rank_tier}</td>
+                                    <td><a href="${data.profile.profile.profileurl}" target="_blank">Link</a></td>
                                 </tr>
                             </table>
 
@@ -141,7 +153,9 @@ function displayPlayerData (data) {
     $('main').empty().append(playerData);
 }
 
-// CONTROL
+/* -------------------------------------------------------------------------- */
+/*                                   Control                                  */
+/* -------------------------------------------------------------------------- */
 
 function addEventListeners () {
     $('main').on('submit', 'form', function(e) {
@@ -152,7 +166,7 @@ function addEventListeners () {
     });
 
     $('main').on('click', 'li', function(e) {
-        const accountID = e.target.id;
+        const accountID = e.target.closest('li').id;
 
         getPlayerData(accountID);
     })
