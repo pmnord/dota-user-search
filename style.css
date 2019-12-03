@@ -1,11 +1,25 @@
 
+
+header {
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
 body {
-    margin-top: 200px;
     text-align: center;
 }
 form {
     margin: 0 auto;
     margin-bottom: 21.44px;
+}
+form button {
+    display: none;
+}
+form input {
+    width: 400px;
+    height: 1.5rem;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 ul {

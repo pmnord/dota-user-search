@@ -27,15 +27,13 @@ function getPlayerList (query) {
     .catch(error => console.log(error))
 };
 
-async function getPlayerData (accountID) {
+function getPlayerData (accountID) {
 
-    // let promise = new Promise((resolve, reject) => {
 
-    let playerData = [];
 
 /* ------------------------ Fetch basic profile data ------------------------ */
 
-    fetch(`https://api.opendota.com/api/players/` + accountID)
+    fetch(`https://api.opendota.com/api/players/${accountID}`)
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -43,7 +41,9 @@ async function getPlayerData (accountID) {
             throw new Error(response.json());
         }
     })
-    .then(responseJSON => displayPlayerData(responseJSON))
+    .then(responseJSON => {
+        console.log(responseJSON);
+        displayPlayerData(responseJSON)})
     .catch(error => console.log(error))
     
 /* -------------------------- Fetch win/loss record ------------------------- */
@@ -73,13 +73,6 @@ async function getPlayerData (accountID) {
     .catch(error => console.log(error));
 
 
-    // return resolve(playerData);
-    // })
-    // let result = await promise;
-    // console.log(result);
-
-
-
 }
 
 /* -------------------------------------------------------------------------- */
@@ -90,11 +83,11 @@ function displaySearchResults (data) {
 
     const searchForm = `<form>
                             <label for="player-search"></label>
-                            <input type="text" id="player-search">
+                            <input type="text" id="player-search" placeholder="Enter a player name">
                             <button>Search</button>
                         </form>`;
 
-    let searchResults = `${searchForm}<ul>`;
+    let searchResults = `<ul>`;
 
     // Lets sort the data so that highest MMR is first
     data.sort(function(a, b){return })
@@ -109,20 +102,16 @@ function displaySearchResults (data) {
 
     searchResults += `</ul>`;
 
+    $('header').empty().append(searchForm);
     $('main').empty().append(searchResults)
 }
 
-function displayPlayerData (data) {
+function displayPlayerData (player, wl, recentMatches) {
 
-    const searchForm = `<form>
-                            <label for="player-search"></label>
-                            <input type="text" id="player-search">
-                            <button>Search</button>
-                        </form>`;
 
-    const playerData = `${searchForm}
+    const playerData = `
                         <div class="player-data">
-                            <h2>${data.profile.profile.personaname}</h2>
+                            <h2>${player.profile.personaname}</h2>
 
                             <h3 class="greybox2">Profile</h3>
                             <table>
@@ -133,15 +122,12 @@ function displayPlayerData (data) {
                                     <th>Steam Account</th>
                                 </tr>
                                 <tr>
-                                    <td>${data.profile.profile.loccountrycode}</td>
-                                    <td>${data.profile.mmr_estimate.estimate}</td>
-                                    <td>${data.profile.rank_tier}</td>
-                                    <td><a href="${data.profile.profile.profileurl}" target="_blank">Link</a></td>
+                                    <td>${player.profile.loccountrycode || ''}</td>
+                                    <td>${player.mmr_estimate.estimate}</td>
+                                    <td>${player.rank_tier || ''}</td>
+                                    <td><a href="${player.profile.profileurl}" target="_blank">Link</a></td>
                                 </tr>
                             </table>
-
-                            <h3 class="greybox2">Heroes Played</h3>
-                            <table></table>
 
                             <h3 class="greybox2">Recent Matches</h3>
                             <table></table>
@@ -158,7 +144,7 @@ function displayPlayerData (data) {
 /* -------------------------------------------------------------------------- */
 
 function addEventListeners () {
-    $('main').on('submit', 'form', function(e) {
+    $('body').on('submit', 'form', function(e) {
         e.preventDefault();
         const searchInput = $('#player-search').val();
 
