@@ -5,8 +5,6 @@
 /*                                  Model                                     */
 /* -------------------------------------------------------------------------- */
 
-const STORE = {};
-
 
 
 /* ---------------------------- Fetch player list --------------------------- */
@@ -27,11 +25,9 @@ function getPlayerList (query) {
     .catch(error => console.log(error))
 };
 
-function getPlayerData (accountID) {
-
-
 
 /* ------------------------ Fetch basic profile data ------------------------ */
+function getPlayerData(accountID) {
 
     fetch(`https://api.opendota.com/api/players/${accountID}`)
     .then(response => {
@@ -43,11 +39,15 @@ function getPlayerData (accountID) {
     })
     .then(responseJSON => {
         console.log(responseJSON);
-        displayPlayerData(responseJSON)})
+        displayPlayerData(responseJSON);
+    })
     .catch(error => console.log(error))
+
+}
+    
     
 /* -------------------------- Fetch win/loss record ------------------------- */
-
+function getPlayerWl (accountID) {
     fetch(`https://api.opendota.com/api/players/${accountID}/wl`)
     .then(response => {
         if (response.ok) {
@@ -56,11 +56,14 @@ function getPlayerData (accountID) {
             throw new Error(response.json());
         }
     })
-    .then(responseJSON => console.log(responseJSON))
+    .then(responseJSON => {
+        console.log(responseJSON)
+        /*call display*/
+    })
     .catch(error => console.log(error))
-
+}
 /* ------------------------- Fetch recent matches data ------------------------ */
-
+function getPlayerRecentMatches (accountID) {
     fetch(`https://api.opendota.com/api/players/${accountID}/recentMatches`)
     .then(response => {
         if (response.ok) {
@@ -69,11 +72,14 @@ function getPlayerData (accountID) {
             throw new Error(response.json());
         }
     })
-    .then(responseJSON => console.log(responseJSON))
+    .then(responseJSON => {
+        console.log(responseJSON)
+        /*call display*/
+    })
     .catch(error => console.log(error));
-
-
 }
+
+
 
 /* -------------------------------------------------------------------------- */
 /*                                    Views                                   */
@@ -103,14 +109,13 @@ function displaySearchResults (data) {
     searchResults += `</ul>`;
 
     $('header').empty().append(searchForm);
-    $('main').empty().append(searchResults)
+    $('main').empty().append(searchResults);
 }
 
 function displayPlayerData (player, wl, recentMatches) {
 
 
-    const playerData = `
-                        <div class="player-data">
+    const playerData = `<div class="player-data" id="${player.profile.account_id}">
                             <h2>${player.profile.personaname}</h2>
 
                             <h3 class="greybox2">Profile</h3>
@@ -130,13 +135,16 @@ function displayPlayerData (player, wl, recentMatches) {
                             </table>
 
                             <h3 class="greybox2">Recent Matches</h3>
-                            <table></table>
+                            <ul class="recent-matches">
+                                
+                            </ul>
 
                             
                             
                         </div>`
 
     $('main').empty().append(playerData);
+    
 }
 
 /* -------------------------------------------------------------------------- */
@@ -155,6 +163,8 @@ function addEventListeners () {
         const accountID = e.target.closest('li').id;
 
         getPlayerData(accountID);
+        getPlayerWl(accountID);
+        getPlayerRecentMatches(accountID);
     })
 };
 
