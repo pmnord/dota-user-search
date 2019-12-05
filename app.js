@@ -7,6 +7,7 @@
 
 const heroNames = ["Anti-Mage","Axe","Bane","Bloodseeker","Crystal Maiden","Drow Ranger","Earthshaker","Juggernaut","Mirana","Morphling","Shadow Fiend","Phantom Lancer","Puck","Pudge","Razor","Sand King","Storm Spirit","Sven","Tiny","Vengeful Spirit","Windranger","Zeus","Kunkka","Lina","Lion","Shadow Shaman","Slardar","Tidehunter","Witch Doctor","Lich","Riki","Enigma","Tinker","Sniper","Necrophos","Warlock","Beastmaster","Queen of Pain","Venomancer","Faceless Void","Wraith King","Death Prophet","Phantom Assassin","Pugna","Templar Assassin","Viper","Luna","Dragon Knight","Dazzle","Clockwerk","Leshrac","Nature's Prophet","Lifestealer","Dark Seer","Clinkz","Omniknight","Enchantress","Huskar","Night Stalker","Broodmother","Bounty Hunter","Weaver","Jakiro","Batrider","Chen","Spectre","Ancient Apparition","Doom","Ursa","Spirit Breaker","Gyrocopter","Alchemist","Invoker","Silencer","Outworld Devourer","Lycan","Brewmaster","Shadow Demon","Lone Druid","Chaos Knight","Meepo","Treant Protector","Ogre Magi","Undying","Rubick","Disruptor","Nyx Assassin","Naga Siren","Keeper of the Light","Io","Visage","Slark","Medusa","Troll Warlord","Centaur Warrunner","Magnus","Timbersaw","Bristleback","Tusk","Skywrath Mage","Abaddon","Elder Titan","Legion Commander","Techies","Ember Spirit","Earth Spirit","Underlord","Terrorblade","Phoenix","Oracle","Winter Wyvern","Arc Warden","Monkey King","Dark Willow","Pangolier","Grimstroke","Void Spirit","Snapfire","Mars"];
 
+const gameModes = ["Unknown", "All Pick", "Captains Mode", "Random Draft", "Single Draft", "All Random", "Intro", "Diretide", "Reverse Captains Mode", "The Greeviling", "Tutorial", "Mid Only", "Least Played", "Limited Heroes", "Compendium", "Custom", "Captains Draft", "Balanced Draft", "Ability Draft", "Event", "All Random Deathmatch", "1v1 Solo Mid", "All Draft", "Turbo", "Mutation"]
 /* ---------------------------- Fetch player list --------------------------- */
 
 function getPlayerList (query) {
@@ -84,7 +85,8 @@ function getPlayerHeroes (accountID) {
 
 function displaySearchResults (data) {
 
-    const resultsAmount = 1;
+    const resultsAmount = 3;
+
 /* ---------------- Put the search bar at the top of the page --------------- */
     const searchForm = `<form>
                             <h5>Dota2 Player Search</h5>
@@ -160,7 +162,7 @@ function populatePlayerRecentMatches (data, accountID) {
     // STORE.fullMatches[accountID] = data.reduce(function(acc, cur){
     //     return acc += `<tr class="matchid-${cur.match_id}">
     //                         <td>${new Date(cur.start_time * 1000)}</td>
-    //                         <td>${cur.game_mode}</td>
+    //                         <td>${gameModes[cur.game_mode]}</td>
     //                         <td>${heroNames[cur.hero_id]}</td>
     //                         <td>${cur.kills}</td><td>${cur.deaths}</td>
     //                         <td>${cur.assists}</td>
@@ -173,7 +175,7 @@ function populatePlayerRecentMatches (data, accountID) {
     for (let i = 0; i < 5; i++) {
         matches += `<tr class="matchid-${data[i].match_id}">
         <td>${new Date(data[i].start_time * 1000)}</td>
-        <td>${data[i].game_mode}</td>
+        <td>${gameModes[data[i].game_mode]}</td>
         <td>${heroNames[data[i].hero_id]}</td>
         <td>${data[i].kills}</td><td>${data[i].deaths}</td>
         <td>${data[i].assists}</td>
@@ -211,13 +213,28 @@ function populatePlayerHeroes (data, accountID) {
 /* -------------------------------- Matchups -------------------------------- */
     const minGamesAgainst = data.filter(each => each.against_games >= 10);
 
-    $(`.${accountID}-heroes`).append(`<div><h3>Best Matchups</h3>
-                                    <table class="${accountID}-strengths-table">
-                                        <tr>
-                                            <th>Opponent</th>
-                                            <th>Win Rate</th>
-                                        </tr>
-                                    </table></div>`);
+    // Add Matchup Headers
+    $(`.${accountID}-heroes`).append(`<div>
+                                        <h3>Best Matchups</h3>
+                                        <table class="${accountID}-strengths-table">
+                                            <tr>
+                                                <th>Opponent</th>
+                                                <th>Win Rate</th>
+                                            </tr>
+                                        </table>
+                                    </div>`);
+    
+    $(`.${accountID}-heroes`).append(`<div>
+                                        <h3>Weakest Matchups</h3>
+                                        <table class="${accountID}-weakness-table">
+                                            <tr>
+                                                <th>Opponent</th>
+                                                <th>Win Rate</th>
+                                            </tr>
+                                        </table>
+                                    </div>`);
+
+    // Populate Best Matchups
     minGamesAgainst.sort((a,b) => (b.against_win / b.against_games) - (a.against_win / a.against_games));
     let bestMatchups = ``;
     for (let i = 0; i < 5; i++) {
@@ -228,13 +245,7 @@ function populatePlayerHeroes (data, accountID) {
     }
     $(`.${accountID}-strengths-table`).append(bestMatchups);
 
-    $(`.${accountID}-heroes`).append(`<div><h3>Weakest Matchups</h3>
-                                    <table class="${accountID}-weakness-table">
-                                        <tr>
-                                            <th>Opponent</th>
-                                            <th>Win Rate</th>
-                                        </tr>
-                                    </table></div>`);
+    // Populate Weakest Matchups
     minGamesAgainst.sort((a,b) => (a.against_win / a.against_games) - (b.against_win / b.against_games))
     let worstMatchups = ``;
     for (let i = 0; i < 5; i++) {
