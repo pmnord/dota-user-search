@@ -72,8 +72,9 @@ function displaySearchResults (data) {
     const resultsAmount = 2;
 /* ---------------- Put the search bar at the top of the page --------------- */
     const searchForm = `<form>
-                            <label for="player-search"></label>
-                            <input type="text" id="player-search" placeholder="Enter a player name">
+                            <h5>Dota2 Player Search</h5>
+                            <label for="player-search">Player Search</label>
+                            <input type="text" id="player-search">
                             <button>Search</button>
                         </form>`;
     let searchResults = `<ul>`;
@@ -85,9 +86,8 @@ function displaySearchResults (data) {
                             <div class="result-header">
                                 <img src="${data[i].avatarfull}" />
                                 <h2>${data[i].personaname}</h2>
-                                <p><strong>Last Match:</strong> ${new Date(data[i].last_match_time)}</p>
+                                <div class="${data[i].account_id}-profile"></div>
                             </div>
-                            <div class="${data[i].account_id}-profile"></div>
                             <ul class="${data[i].account_id}-matches"><h3>Recent Matches</h3></ul>
                         </li>`
     }
@@ -99,11 +99,10 @@ function displaySearchResults (data) {
         getPlayerData(data[i].account_id);
         getPlayerRecentMatches(data[i].account_id);
     }
-
 }
 
 function populatePlayerData (data, accountID) {
-    console.log(data, accountID);
+    console.log(data);
     $(`.${accountID}-profile`).append(`<table>
                                     <tr>
                                         <th>Country</td>
@@ -121,59 +120,36 @@ function populatePlayerData (data, accountID) {
 }
 
 function populateRecentMatches (data, accountID) {
-    console.log(data, accountID);
+    console.log(data);
 
     $(`.${accountID}-matches`).append(`<table class="${accountID}-matches-table">
                                             <tr>
                                                 <th>Time</th>
+                                                <th>Mode</th>
                                                 <th>Hero</th>
                                                 <th>Kills</th>
                                                 <th>Deaths</th>
                                                 <th>Assists</th>
+                                                <th>Gold/Min</th>
+                                                <th>Last Hits</th>
                                             </tr>
                                         </table>`
     );
 
     const matches = data.reduce(function(acc, cur){
-        return acc += `<tr><td>${new Date(cur.start_time * 1000)}</td><td>${heroNames[cur.hero_id]}</td><td>${cur.kills}</td><td>${cur.deaths}</td><td>${cur.assists}</td></tr>`;
+        return acc += `<tr class="matchid-${cur.match_id}">
+                            <td>${new Date(cur.start_time * 1000)}</td>
+                            <td>${cur.game_mode}</td>
+                            <td>${heroNames[cur.hero_id]}</td>
+                            <td>${cur.kills}</td><td>${cur.deaths}</td>
+                            <td>${cur.assists}</td>
+                            <td>${cur.gold_per_min}</td>
+                            <td>${cur.last_hits}</td>
+                        </tr>`;
     }, ``);
     $(`.${accountID}-matches-table`).append(matches);
 
 }
-
-
-
-// function displayPlayerData (data, accountID) {
-
-//     const playerData = `<div class="player-data">
-                            
-//                             <table>
-//                                 <tr>
-//                                     <th>Country</td>
-//                                     <th>MMR</th>
-//                                     <th>Rank</th>
-//                                     <th>Steam Account</th>
-//                                 </tr>
-//                                 <tr>
-//                                     <td>${player.profile.loccountrycode || ''}</td>
-//                                     <td>${player.mmr_estimate.estimate}</td>
-//                                     <td>${player.rank_tier || ''}</td>
-//                                     <td><a href="${player.profile.profileurl}" target="_blank">Link</a></td>
-//                                 </tr>
-//                             </table>
-
-//                             <h3 class="greybox2">Recent Matches</h3>
-//                             <ul class="recent-matches">
-                                
-//                             </ul>
-
-                            
-                            
-//                         </div>`
-
-//     $(`#${accountID}`).append(playerData);
-    
-// }
 
 /* -------------------------------------------------------------------------- */
 /*                                   Control                                  */
@@ -182,20 +158,13 @@ function populateRecentMatches (data, accountID) {
 function addEventListeners () {
     $('body').on('submit', 'form', function(e) {
         e.preventDefault();
-        const searchInput = $('#player-search').val();
+        $('#player-search').blur();
 
-        console.log('form submitted')
+        const searchInput = $('#player-search').val();
         getPlayerList(searchInput);
     });
+
     $('#player-search').focus();
-
-    // $('main').on('click', 'li', function(e) {
-    //     const accountID = e.target.closest('li').id;
-
-    //     getPlayerData(accountID);
-    //     getPlayerWl(accountID);
-    //     getPlayerRecentMatches(accountID);
-    // })
 };
 
 $(document).ready(addEventListeners());
