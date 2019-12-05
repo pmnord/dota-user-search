@@ -23,8 +23,6 @@ function getPlayerList (query) {
         displaySearchResults(responseJSON);
     })
     .catch(error => console.log(error))
-
-
 };
 
 
@@ -56,11 +54,28 @@ function getPlayerRecentMatches (accountID) {
         }
     })
     .then(responseJSON => {
-        populateRecentMatches(responseJSON, accountID);
+        populatePlayerRecentMatches(responseJSON, accountID);
     })
     .catch(error => console.log(error));
 }
 
+/* ------------------------- Fetch player hero data ------------------------- */
+function getPlayerHeroes (accountID) {
+
+    fetch(`https://api.opendota.com/api/players/${accountID}/heroes`)
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error(response.json());
+        }
+    })
+    .then(responseJSON => {
+        populatePlayerHeroes(responseJSON, accountID);
+    })
+    .catch(error => console.log(error));
+
+}
 
 
 /* -------------------------------------------------------------------------- */
@@ -69,7 +84,7 @@ function getPlayerRecentMatches (accountID) {
 
 function displaySearchResults (data) {
 
-    const resultsAmount = 2;
+    const resultsAmount = 1;
 /* ---------------- Put the search bar at the top of the page --------------- */
     const searchForm = `<form>
                             <h5>Dota2 Player Search</h5>
@@ -88,7 +103,8 @@ function displaySearchResults (data) {
                                 <h2>${data[i].personaname}</h2>
                                 <div class="${data[i].account_id}-profile"></div>
                             </div>
-                            <ul class="${data[i].account_id}-matches"><h3>Recent Matches</h3></ul>
+                            <div class="${data[i].account_id}-heroes heroes"></div>
+                            <div class="${data[i].account_id}-matches"><h3>Recent Matches</h3></div>
                         </li>`
     }
     searchResults += `</ul>`;
@@ -98,28 +114,29 @@ function displaySearchResults (data) {
     for (let i = 0; i < resultsAmount; i++) {
         getPlayerData(data[i].account_id);
         getPlayerRecentMatches(data[i].account_id);
+        getPlayerHeroes(data[i].account_id);
     }
 }
 
 function populatePlayerData (data, accountID) {
     console.log(data);
     $(`.${accountID}-profile`).append(`<table>
-                                    <tr>
-                                        <th>Country</td>
-                                        <th>MMR</th>
-                                        <th>Rank</th>
-                                        <th>Steam Account</th>
-                                    </tr>
-                                    <tr>
-                                        <td>${data.profile.loccountrycode || 'Unknown'}</td>
-                                        <td>${data.mmr_estimate.estimate || 'Unranked'}</td>
-                                        <td>${data.rank_tier || 'Unranked'}</td>
-                                        <td><a href="${data.profile.profileurl}" target="_blank">Link</a></td>
-                                    </tr>
-                                </table>`);
+                                        <tr>
+                                            <th>Country</td>
+                                            <th>MMR</th>
+                                            <th>Rank</th>
+                                            <th>Steam Account</th>
+                                        </tr>
+                                        <tr>
+                                            <td>${data.profile.loccountrycode || 'Unknown'}</td>
+                                            <td>${data.mmr_estimate.estimate || 'Unranked'}</td>
+                                            <td>${data.rank_tier || 'Unranked'}</td>
+                                            <td><a href="${data.profile.profileurl}" target="_blank">Link</a></td>
+                                        </tr>
+                                    </table>`);
 }
 
-function populateRecentMatches (data, accountID) {
+function populatePlayerRecentMatches (data, accountID) {
     console.log(data);
 
     $(`.${accountID}-matches`).append(`<table class="${accountID}-matches-table">
@@ -136,18 +153,98 @@ function populateRecentMatches (data, accountID) {
                                         </table>`
     );
 
-    const matches = data.reduce(function(acc, cur){
-        return acc += `<tr class="matchid-${cur.match_id}">
-                            <td>${new Date(cur.start_time * 1000)}</td>
-                            <td>${cur.game_mode}</td>
-                            <td>${heroNames[cur.hero_id]}</td>
-                            <td>${cur.kills}</td><td>${cur.deaths}</td>
-                            <td>${cur.assists}</td>
-                            <td>${cur.gold_per_min}</td>
-                            <td>${cur.last_hits}</td>
-                        </tr>`;
-    }, ``);
+
+    // I'm planning to save the whole search results in the STORE object to populate
+    // the list in a 'show more' feature
+
+    // STORE.fullMatches[accountID] = data.reduce(function(acc, cur){
+    //     return acc += `<tr class="matchid-${cur.match_id}">
+    //                         <td>${new Date(cur.start_time * 1000)}</td>
+    //                         <td>${cur.game_mode}</td>
+    //                         <td>${heroNames[cur.hero_id]}</td>
+    //                         <td>${cur.kills}</td><td>${cur.deaths}</td>
+    //                         <td>${cur.assists}</td>
+    //                         <td>${cur.gold_per_min}</td>
+    //                         <td>${cur.last_hits}</td>
+    //                     </tr>`;
+    // }, ``);
+
+    let matches = ``;
+    for (let i = 0; i < 5; i++) {
+        matches += `<tr class="matchid-${data[i].match_id}">
+        <td>${new Date(data[i].start_time * 1000)}</td>
+        <td>${data[i].game_mode}</td>
+        <td>${heroNames[data[i].hero_id]}</td>
+        <td>${data[i].kills}</td><td>${data[i].deaths}</td>
+        <td>${data[i].assists}</td>
+        <td>${data[i].gold_per_min}</td>
+        <td>${data[i].last_hits}</td>
+    </tr>`
+    }
+
     $(`.${accountID}-matches-table`).append(matches);
+}
+
+function populatePlayerHeroes (data, accountID) {
+    console.log('heroes data:', data);
+    
+    $(`.${accountID}-heroes`).append(`<div><h3>Most Played</h3>
+                                    <table class="${accountID}-heroes-table">
+                                        <tr>
+                                            <th>Hero</th>
+                                            <th>Games</th>
+                                            <th>Win Rate</th>
+                                        </tr>
+                                    </table></div>`);
+
+    let heroes = ``;
+    for (let i = 0; i < 5; i++) {
+        console.log(data[i])
+        heroes += `<tr>
+                        <td>${heroNames[data[i].hero_id]}</td>
+                        <td>${data[i].games}</td>
+                        <td>${Math.round((data[i].win / data[i].games) * 100)}%</td>
+                    </tr>`
+    }
+    $(`.${accountID}-heroes-table`).append(heroes);
+
+/* -------------------------------- Matchups -------------------------------- */
+    const minGamesAgainst = data.filter(each => each.against_games >= 10);
+
+    $(`.${accountID}-heroes`).append(`<div><h3>Best Matchups</h3>
+                                    <table class="${accountID}-strengths-table">
+                                        <tr>
+                                            <th>Opponent</th>
+                                            <th>Win Rate</th>
+                                        </tr>
+                                    </table></div>`);
+    minGamesAgainst.sort((a,b) => (b.against_win / b.against_games) - (a.against_win / a.against_games));
+    let bestMatchups = ``;
+    for (let i = 0; i < 5; i++) {
+        bestMatchups += `<tr>
+                            <td>${heroNames[minGamesAgainst[i].hero_id]}</td>
+                            <td>${Math.round((minGamesAgainst[i].against_win / minGamesAgainst[i].against_games) * 100)}%</td>
+                        </tr>`
+    }
+    $(`.${accountID}-strengths-table`).append(bestMatchups);
+
+    $(`.${accountID}-heroes`).append(`<div><h3>Weakest Matchups</h3>
+                                    <table class="${accountID}-weakness-table">
+                                        <tr>
+                                            <th>Opponent</th>
+                                            <th>Win Rate</th>
+                                        </tr>
+                                    </table></div>`);
+    minGamesAgainst.sort((a,b) => (a.against_win / a.against_games) - (b.against_win / b.against_games))
+    let worstMatchups = ``;
+    for (let i = 0; i < 5; i++) {
+        worstMatchups += `<tr>
+                            <td>${heroNames[minGamesAgainst[i].hero_id]}</td>
+                            <td>${Math.round((minGamesAgainst[i].against_win / minGamesAgainst[i].against_games) * 100)}%</td>
+                        </tr>`
+    }
+    $(`.${accountID}-weakness-table`).append(worstMatchups);
+
 
 }
 

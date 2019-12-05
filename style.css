@@ -10,7 +10,7 @@ body {
     margin: 0 10px;
     font-family: 'Montserrat', sans-serif;
 }
-h1, h2, h3, h4, h5 {
+h1, h2 {
     font-family: 'Righteous', cursive;
 }
 h5 {
@@ -58,6 +58,16 @@ li img {
     display: grid;
     grid-template-columns: 10% 10% 80%;
     align-items: center;
+}
+.heroes {
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+}
+h3 {
+    text-align: center;
+    margin-bottom: 5px;
+    background-color: rgb(190,190,190);
+    width: 100%;
 }
 
 table {
