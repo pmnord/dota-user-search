@@ -1,9 +1,8 @@
-
-
-
 /* -------------------------------------------------------------------------- */
 /*                                  Model                                     */
 /* -------------------------------------------------------------------------- */
+
+const Store = {};
 
 const heroNames = ["Anti-Mage","Axe","Bane","Bloodseeker","Crystal Maiden","Drow Ranger","Earthshaker","Juggernaut","Mirana","Morphling","Shadow Fiend","Phantom Lancer","Puck","Pudge","Razor","Sand King","Storm Spirit","Sven","Tiny","Vengeful Spirit","Windranger","Zeus","Kunkka","Lina","Lion","Shadow Shaman","Slardar","Tidehunter","Witch Doctor","Lich","Riki","Enigma","Tinker","Sniper","Necrophos","Warlock","Beastmaster","Queen of Pain","Venomancer","Faceless Void","Wraith King","Death Prophet","Phantom Assassin","Pugna","Templar Assassin","Viper","Luna","Dragon Knight","Dazzle","Clockwerk","Leshrac","Nature's Prophet","Lifestealer","Dark Seer","Clinkz","Omniknight","Enchantress","Huskar","Night Stalker","Broodmother","Bounty Hunter","Weaver","Jakiro","Batrider","Chen","Spectre","Ancient Apparition","Doom","Ursa","Spirit Breaker","Gyrocopter","Alchemist","Invoker","Silencer","Outworld Devourer","Lycan","Brewmaster","Shadow Demon","Lone Druid","Chaos Knight","Meepo","Treant Protector","Ogre Magi","Undying","Rubick","Disruptor","Nyx Assassin","Naga Siren","Keeper of the Light","Io","Visage","Slark","Medusa","Troll Warlord","Centaur Warrunner","Magnus","Timbersaw","Bristleback","Tusk","Skywrath Mage","Abaddon","Elder Titan","Legion Commander","Techies","Ember Spirit","Earth Spirit","Underlord","Terrorblade","Phoenix","Oracle","Winter Wyvern","Arc Warden","Monkey King","Dark Willow","Pangolier","Grimstroke","Void Spirit","Snapfire","Mars"];
 
@@ -84,6 +83,14 @@ function getPlayerHeroes (accountID) {
 /* -------------------------------------------------------------------------- */
 
 function displaySearchResults (data) {
+    
+    // Filter the search results to provide most recently active players first
+    data = data.slice(0, 10);
+    data = data.filter(each => each.last_match_time);
+    data.sort((a,b) => {return a.last_match_time < b.last_match_time ? 1 : b.last_match_time < a.last_match_time ? -1 : 0});
+    console.log('search results', data);
+
+
 
     const resultsAmount = 3;
 
@@ -121,7 +128,6 @@ function displaySearchResults (data) {
 }
 
 function populatePlayerData (data, accountID) {
-    console.log(data);
     $(`.${accountID}-profile`).append(`<table>
                                         <tr>
                                             <th>Country</td>
@@ -139,7 +145,6 @@ function populatePlayerData (data, accountID) {
 }
 
 function populatePlayerRecentMatches (data, accountID) {
-    console.log(data);
 
     $(`.${accountID}-matches`).append(`<table class="${accountID}-matches-table">
                                             <tr>
@@ -152,27 +157,12 @@ function populatePlayerRecentMatches (data, accountID) {
                                                 <th>Gold/Min</th>
                                                 <th>Last Hits</th>
                                             </tr>
-                                        </table>`
+                                        </table>
+                                        <button class="${accountID}-show-more">Show More</button>`
     );
 
-
-    // I'm planning to save the whole search results in the STORE object to populate
-    // the list in a 'show more' feature
-
-    // STORE.fullMatches[accountID] = data.reduce(function(acc, cur){
-    //     return acc += `<tr class="matchid-${cur.match_id}">
-    //                         <td>${new Date(cur.start_time * 1000)}</td>
-    //                         <td>${gameModes[cur.game_mode]}</td>
-    //                         <td>${heroNames[cur.hero_id]}</td>
-    //                         <td>${cur.kills}</td><td>${cur.deaths}</td>
-    //                         <td>${cur.assists}</td>
-    //                         <td>${cur.gold_per_min}</td>
-    //                         <td>${cur.last_hits}</td>
-    //                     </tr>`;
-    // }, ``);
-
     let matches = ``;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {   // The start_time property is formatted in Epoch time
         matches += `<tr class="matchid-${data[i].match_id}">
         <td>${new Date(data[i].start_time * 1000)}</td>
         <td>${gameModes[data[i].game_mode]}</td>
@@ -183,12 +173,29 @@ function populatePlayerRecentMatches (data, accountID) {
         <td>${data[i].last_hits}</td>
     </tr>`
     }
-
     $(`.${accountID}-matches-table`).append(matches);
+
+    let showMoreMatches = ``;
+    for (let i = 5; i < 20; i++) {   // The start_time property is formatted in Epoch time
+        showMoreMatches += `<tr class="matchid-${data[i].match_id}">
+        <td>${new Date(data[i].start_time * 1000)}</td>
+        <td>${gameModes[data[i].game_mode]}</td>
+        <td>${heroNames[data[i].hero_id]}</td>
+        <td>${data[i].kills}</td><td>${data[i].deaths}</td>
+        <td>${data[i].assists}</td>
+        <td>${data[i].gold_per_min}</td>
+        <td>${data[i].last_hits}</td>
+    </tr>`
+    }
+    Store[accountID] = showMoreMatches;
+    $(`.${accountID}-show-more`).on('click', function(){
+        $(`.${accountID}-show-more`).remove();
+        $(`.${accountID}-matches-table`).append(Store[accountID]);
+    });
+
 }
 
 function populatePlayerHeroes (data, accountID) {
-    console.log('heroes data:', data);
     
     $(`.${accountID}-heroes`).append(`<div><h3>Most Played</h3>
                                     <table class="${accountID}-heroes-table">
@@ -201,7 +208,6 @@ function populatePlayerHeroes (data, accountID) {
 
     let heroes = ``;
     for (let i = 0; i < 5; i++) {
-        console.log(data[i])
         heroes += `<tr>
                         <td>${heroNames[data[i].hero_id]}</td>
                         <td>${data[i].games}</td>
