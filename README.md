@@ -1,4 +1,4 @@
-# Dota2 Player Statistics Lookup
+# Dota2 Player Stats Lookup
 
 Live Demo: https://pmnord.github.io/dota-player-lookup/
 
@@ -13,4 +13,3 @@ Live Demo: https://pmnord.github.io/dota-player-lookup/
 
 This project has definitely showed me the limitations of working with a small number of API calls - I would like to add further search refinement but it would require many more calls to the API
 - Such as showing the user a person's percentile compared to the average hero performance - which would recall a separate API call for each hero to get their average hero performance
-

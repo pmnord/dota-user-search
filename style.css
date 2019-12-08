@@ -18,12 +18,10 @@ h5 {
 }
 
 main {
-    margin: 0 auto;
     min-height: 100px;
     max-width: 1500px;
-    min-width: 476px;
+    margin: 0 auto;
 }
-
 
 form {
     margin: 0 auto;
@@ -44,10 +42,10 @@ ul {
     list-style: none;
     padding: 0;
     margin: 0 auto;
-    width: 100%;
 }
 li {
     width: 100%;
+    box-sizing: border-box;
     text-align: left;
     padding: 10px;
     display: flex;
