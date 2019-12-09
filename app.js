@@ -165,7 +165,7 @@ function populatePlayerRecentMatches (data, accountID) {
         matches += `<tr class="matchid-${data[i].match_id}">
         <td>${new Date(data[i].start_time * 1000)}</td>
         <td>${gameModes[data[i].game_mode]}</td>
-        <td>${heroNames[data[i].hero_id]}</td>
+        <td><img src="resources/hero-images/${data[i].hero_id}.png" class="hero" />${heroNames[data[i].hero_id]}</td>
         <td>${data[i].kills}</td><td>${data[i].deaths}</td>
         <td>${data[i].assists}</td>
         <td>${data[i].gold_per_min}</td>
@@ -179,7 +179,7 @@ function populatePlayerRecentMatches (data, accountID) {
         showMoreMatches += `<tr class="matchid-${data[i].match_id}">
         <td>${new Date(data[i].start_time * 1000)}</td>
         <td>${gameModes[data[i].game_mode]}</td>
-        <td>${heroNames[data[i].hero_id]}</td>
+        <td><img src="resources/hero-images/${data[i].hero_id}.png" class="hero" />${heroNames[data[i].hero_id]}</td>
         <td>${data[i].kills}</td><td>${data[i].deaths}</td>
         <td>${data[i].assists}</td>
         <td>${data[i].gold_per_min}</td>
@@ -208,7 +208,7 @@ function populatePlayerHeroes (data, accountID) {
     let heroes = ``;
     for (let i = 0; i < 5; i++) {
         heroes += `<tr>
-                        <td>${heroNames[data[i].hero_id]}</td>
+                        <td><img src="resources/hero-images/${data[i].hero_id}.png" class="hero" />${heroNames[data[i].hero_id]}</td>
                         <td>${data[i].games}</td>
                         <td>${Math.round((data[i].win / data[i].games) * 100)}%</td>
                     </tr>`
@@ -244,7 +244,7 @@ function populatePlayerHeroes (data, accountID) {
     let bestMatchups = ``;
     for (let i = 0; i < 5; i++) {
         bestMatchups += `<tr>
-                            <td>${heroNames[minGamesAgainst[i].hero_id]}</td>
+                            <td><img src="resources/hero-images/${minGamesAgainst[i].hero_id}.png" class="hero" />${heroNames[minGamesAgainst[i].hero_id]}</td>
                             <td>${Math.round((minGamesAgainst[i].against_win / minGamesAgainst[i].against_games) * 100)}%</td>
                         </tr>`
     }
@@ -255,7 +255,7 @@ function populatePlayerHeroes (data, accountID) {
     let worstMatchups = ``;
     for (let i = 0; i < 5; i++) {
         worstMatchups += `<tr>
-                            <td>${heroNames[minGamesAgainst[i].hero_id]}</td>
+                            <td><img src="resources/hero-images/${minGamesAgainst[i].hero_id}.png" class="hero" />${heroNames[minGamesAgainst[i].hero_id]}</td>
                             <td>${Math.round((minGamesAgainst[i].against_win / minGamesAgainst[i].against_games) * 100)}%</td>
                         </tr>`
     }
