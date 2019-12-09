@@ -1,4 +1,14 @@
 
+form button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 100px;
+    height: 30px;
+}
+
+
+
 
 header {
     height: 150px;
@@ -26,9 +36,7 @@ main {
 form {
     margin: 0 auto;
 }
-form button {
-    display: none;
-}
+
 form label {
     display: none;
 }
@@ -52,9 +60,11 @@ li {
     flex-direction: column;
     margin-bottom: 10px;
 }
-
 li img {
     height: 100%;
+}
+li button {
+    font-weight: bold;
 }
 
 .result-header {
@@ -103,4 +113,10 @@ footer {
 .greybox3 {
     background-color: rgb(210,210,210);
     border: solid 1px white;
+}
+
+@media screen and (min-width:600px) {
+    form button {
+        display: none;
+    }
 }
