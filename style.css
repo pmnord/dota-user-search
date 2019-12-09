@@ -1,106 +1,133 @@
-
-
-header {
-    height: 150px;
-    display: flex;
-    align-items: center;
-}
 body {
-    text-align: center;
-    margin: 0 10px;
-    font-family: 'Montserrat', sans-serif;
-}
-h1, h2 {
-    font-family: 'Righteous', cursive;
-}
-h5 {
-    margin: 5px 0;
-}
-
-main {
-    min-height: 100px;
-    max-width: 1500px;
-    margin: 0 auto;
-}
-
-form {
-    margin: 0 auto;
+    background-image: url("resources/barfight_by_jasonwang7_d81e9gl.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: black;
 }
 form button {
-    display: none;
-}
-form label {
-    display: none;
-}
-form input {
-    width: 400px;
-    height: 1.5rem;
-    font-size: 1.5rem;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
+    display: block;
     margin: 0 auto;
-}
-li {
-    width: 100%;
-    box-sizing: border-box;
-    text-align: left;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    width: 100px;
+    height: 30px;
 }
 
-li img {
-    height: 100%;
+li .hero {
+    height: 25px;
 }
 
-.result-header {
-    display: grid;
-    grid-template-columns: 10% 20% 70%;
-    align-items: center;
-}
-.heroes {
-    display: grid;
-    grid-template-columns: 33.3% 33.3% 33.3%;
-}
-h3 {
-    text-align: center;
-    margin-bottom: 5px;
-    background-color: rgb(190,190,190);
-    width: 100%;
-}
 
-table {
-    width: 100%;
-}
-th {
-    background-color: rgb(230,230,230);
-    border: solid 0.5px white;
-    padding: 1px;
-}
-td {
-    background-color: rgb(230,230,230);
-    border: solid 0.5px white;
-    padding: 1px;
-}
 
-footer {
-    font-size: 0.8rem;
-    margin-top: 50px;
-}
+@media screen and (min-width:600px) {
 
-.greybox1 {
-    background-color: rgb(210,210,210);
-    border: solid 1px white;
-}
-.greybox2 {
-    background-color: rgb(180,180,180);
-    border: solid 1px white;
-}
-.greybox3 {
-    background-color: rgb(210,210,210);
-    border: solid 1px white;
+    
+    header {
+        height: 150px;
+        display: flex;
+        align-items: center;
+    }
+    body {
+        text-align: center;
+        margin: 0 10px;
+        font-family: 'Montserrat', sans-serif;
+    }
+    h1, h2 {
+        font-family: 'Righteous', cursive;
+    }
+    h5 {
+        margin: 5px 0;
+    }
+
+    main {
+        min-height: 100px;
+        max-width: 1500px;
+        margin: 0 auto;
+    }
+
+    form {
+        margin: 0 auto;
+    }
+
+    form label {
+        display: none;
+    }
+    form input {
+        width: 400px;
+        height: 1.5rem;
+        font-size: 1.5rem;
+    }
+    form button {
+        display: none;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+    }
+    li {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: left;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+    li img {
+        height: 100%;
+    }
+    li button {
+        font-weight: bold;
+    }
+
+    .result-header {
+        display: grid;
+        grid-template-columns: 10% 20% 70%;
+        align-items: center;
+    }
+    .heroes {
+        display: grid;
+        grid-template-columns: 33.3% 33.3% 33.3%;
+    }
+    h3 {
+        text-align: center;
+        margin-bottom: 5px;
+        background-color: rgb(190,190,190);
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+    }
+    th {
+        background-color: rgb(230,230,230);
+        border: solid 0.5px white;
+        padding: 1px;
+    }
+    td {
+        background-color: rgb(230,230,230);
+        border: solid 0.5px white;
+        padding: 1px;
+    }
+
+    footer {
+        font-size: 0.8rem;
+        margin-top: 50px;
+    }
+
+    .greybox1 {
+        background-color: rgb(210,210,210);
+        border: solid 1px white;
+    }
+    .greybox2 {
+        background-color: rgb(180,180,180);
+        border: solid 1px white;
+    }
+    .greybox3 {
+        background-color: rgb(210,210,210);
+        border: solid 1px white;
+    }
+
+    
 }
