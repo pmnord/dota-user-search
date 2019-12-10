@@ -1,38 +1,187 @@
-body {
+header {
+    height: 100px;
+}
+.header-form {
+    height: 100%;
+    width: 100%;
     background-image: url("resources/barfight_by_jasonwang7_d81e9gl.png");
     background-size: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+h5 {
+    display: block;
+    margin: 5px auto;
+    font-family: 'Righteous', cursive;
+    color: black;
+    background-color: white;
+}
+
+body {
+    background-image: url("resources/barfight_by_jasonwang7_d81e9gl.png");
+    background-size: cover;
     background-repeat: no-repeat;
     background-color: black;
+    background-position: center;
+
+    text-align: center;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+}
+h1, h2 {
+    font-family: 'Righteous', cursive;
+}
+
+form {
+    margin: 0 auto;
+}
+form input {
+    height: 30px;
+    box-sizing: border-box;
 }
 form button {
-    display: block;
+    display: none;
     margin: 0 auto;
-    margin-top: 20px;
-    width: 100px;
+    margin-top: 5px;
+    width: 35px;
     height: 30px;
+    border: none;
+    box-sizing: border-box;
+}
+
+form label {
+    display: none;
+}
+
+footer {
+    font-size: 0.8rem;
+    background-color: #212224;
+    color: white;
+    margin: 0;
+}
+
+main {
+    min-height: 100px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+}
+li {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+li img {
+    height: 100%;
+}
+li button {
+    font-weight: bold;
 }
 
 li .hero {
     height: 25px;
 }
 
+.result-header {
+    display: grid;
+    grid-template-columns: 18% 18% 64%;
+    align-items: center;
+}
+.heroes {
+    display: grid;
+    grid-template-columns: 100%;
+}
+.recent-matches {
+    font-size: 11px;
+    text-align: center;
+}
+.recent-matches img {
+    display: block;
+    margin: 0 auto;
+}
+h2 {
+    color: white;
+    font-weight: normal;
+}
+h3 {
+    text-align: center;
+    margin-bottom: 5px;
+    background-color: #516B58;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+<<<<<<< HEAD
+=======
+th, td {
+    background-color: #B2EBC1;
+    /* padding: 1px; */
+}
+th {
+    background-color: #82AB8D;
+}
+
+footer {
+    font-size: 0.8rem;
+    margin-top: 50px;
+    padding: 1px;
+}
+
+.greybox1 {
+    background-color: #344539;
+}
+.greybox2 {
+    background-color: #82AB8D;
+    border: solid 1px white;
+}
+.greybox3 {
+    background-color: #82AB8D;
+    border: solid 1px white;
+}
 
 
+>>>>>>> ec0b76cfa2d83b6132075382bc9aa38ced770d0e
 @media screen and (min-width:600px) {
     
+    .header-form {
+        height: 100%;
+        width: 100%;
+        background-image: none;
+        background-size: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
     header {
         height: 150px;
         display: flex;
         align-items: center;
     }
-    body {
-        text-align: center;
-        margin: 0 10px;
-        font-family: 'Montserrat', sans-serif;
+    form input {
+        width: 400px;
+        height: 1.5rem;
+        font-size: 1.5rem;
     }
-    h1, h2 {
-        font-family: 'Righteous', cursive;
-    }
+    
     h5 {
         margin: 5px 0;
     }
@@ -47,14 +196,6 @@ li .hero {
         margin: 0 auto;
     }
 
-    form label {
-        display: none;
-    }
-    form input {
-        width: 400px;
-        height: 1.5rem;
-        font-size: 1.5rem;
-    }
     form button {
         display: none;
     }
@@ -72,12 +213,19 @@ li .hero {
         display: flex;
         flex-direction: column;
         margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: normal;
+        margin: 10px;
+        border: solid black 1px;
     }
     li img {
         height: 100%;
     }
     li button {
         font-weight: bold;
+    }
+    li .hero {
+        display: inline-block;
     }
 
     .result-header {
@@ -89,10 +237,13 @@ li .hero {
         display: grid;
         grid-template-columns: 33.3% 33.3% 33.3%;
     }
+    .recent-matches {
+        font-size: 16px;
+        text-align: left;
+    }
     h3 {
         text-align: center;
         margin-bottom: 5px;
-        background-color: rgb(190,190,190);
         width: 100%;
     }
 
@@ -100,32 +251,15 @@ li .hero {
         width: 100%;
     }
     th {
-        background-color: rgb(230,230,230);
-        border: solid 0.5px white;
         padding: 1px;
     }
     td {
-        background-color: rgb(230,230,230);
-        border: solid 0.5px white;
         padding: 1px;
     }
 
     footer {
         font-size: 0.8rem;
         margin-top: 50px;
-    }
-
-    .greybox1 {
-        background-color: rgb(210,210,210);
-        border: solid 1px white;
-    }
-    .greybox2 {
-        background-color: rgb(180,180,180);
-        border: solid 1px white;
-    }
-    .greybox3 {
-        background-color: rgb(210,210,210);
-        border: solid 1px white;
     }
 
     
