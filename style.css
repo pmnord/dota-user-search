@@ -16,9 +16,9 @@ header {
 body {
     background-image: url("resources/barfight_by_jasonwang7_d81e9gl.png");
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-color: black;
-    background-position: center;
+    background-position: center center;
 
     display: flex;
     flex-direction: column;
@@ -55,7 +55,7 @@ form {
     margin: 0 auto;
 }
 .landing-form {
-    margin-bottom: 100px;
+    margin-bottom: 220px;
 }
 .landing-form input {
     border: solid black 0.5px;
@@ -100,7 +100,6 @@ footer {
 
 main {
     min-height: 100px;
-    max-width: 1500px;
     margin: 0 auto;
 }
 
@@ -113,6 +112,7 @@ li {
     width: 100%;
     margin-bottom: 10px;
     padding: 10px;
+    background-color: #344539;
 
     box-sizing: border-box;
     display: flex;
@@ -141,10 +141,18 @@ li .hero {
 }
 
 .result-header {
-    display: grid;
-    grid-template-columns: 18% 18% 64%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
 }
+.result-header img {
+    height: 60px;
+}
+.result-header h2 {
+    padding: 0 10px;
+}
+
 .heroes {
     display: grid;
     grid-template-columns: 100%;
@@ -164,21 +172,25 @@ h2 {
 h3 {
     text-align: center;
     margin-bottom: 5px;
-    background-color: #516B58;
+    background-color: #82AB8D;
     width: 100%;
 }
 
 table {
     width: 100%;
 }
-
-th, td {
-    background-color: #B2EBC1;
-    /* padding: 1px; */
-}
 th {
     background-color: #82AB8D;
 }
+td {
+    background-color: #B2EBC1;
+}
+tr {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
 
 footer {
     font-size: 0.8rem;
@@ -203,7 +215,7 @@ footer a {
 }
 
 
-@media screen and (min-width:600px) {
+@media screen and (min-width:700px) {
     
     .header-form {
         height: 100%;
@@ -221,10 +233,26 @@ footer a {
         display: flex;
         align-items: center;
     }
+    h1 {
+        font-size: 3.3rem;
+    }
+    form {
+        margin: 0 auto;
+    }
+    .landing-form {
+        margin-bottom: 600px;
+    }
+    form button {
+        display: none;
+    }
     form input {
-        width: 400px;
-        height: 1.5rem;
-        font-size: 1.5rem;
+        width: 500px;
+        height: 3rem;
+        font-size: 2rem;
+    }
+    form input:focus {
+        outline: none;
+        border: solid 0.5px orange;
     }
     
     h5 {
@@ -233,22 +261,14 @@ footer a {
 
     main {
         min-height: 100px;
-        max-width: 1500px;
         margin: 0 auto;
-    }
-
-    form {
-        margin: 0 auto;
-    }
-
-    form button {
-        display: none;
     }
 
     ul {
         list-style: none;
         padding: 0;
         margin: 0 auto;
+        width: 100%;
     }
     li {
         width: 100%;
@@ -260,7 +280,6 @@ footer a {
         margin-bottom: 10px;
         font-size: 16px;
         font-weight: normal;
-        margin: 10px;
         border: solid black 1px;
     }
     li img {
@@ -275,9 +294,13 @@ footer a {
 
     .result-header {
         display: grid;
-        grid-template-columns: 10% 20% 70%;
+        grid-template-columns: 12% 28% 60%;
         align-items: center;
     }
+    .result-header h2 {
+        padding: 0;
+    }
+
     .heroes {
         display: grid;
         grid-template-columns: 33.3% 33.3% 33.3%;
@@ -296,10 +319,10 @@ footer a {
         width: 100%;
     }
     th {
-        padding: 1px;
+        padding-left: 5px;
     }
     td {
-        padding: 1px;
+        padding-left: 5px;
     }
 
     footer {
@@ -308,4 +331,10 @@ footer a {
     }
 
     
+}
+
+@media screen and (min-width: 1150px) {
+    li {
+        width: 1150px;
+    }
 }

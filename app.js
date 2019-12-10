@@ -125,7 +125,7 @@ function displaySearchResults (data) {
 
 /* ------------------------- Add search results list ------------------------ */
     for (let i = 0; i < resultsAmount; i++) {
-        searchResults += `<li class="greybox1" id="${data[i].account_id}">
+        searchResults += `<li id="${data[i].account_id}">
                             <div class="result-header">
                                 <img src="${data[i].avatarfull}" />
                                 <h2>${data[i].personaname}</h2>
