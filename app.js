@@ -7,6 +7,24 @@ const Store = {};
 const heroNames = ["Anti-Mage","Axe","Bane","Bloodseeker","Crystal Maiden","Drow Ranger","Earthshaker","Juggernaut","Mirana","Morphling","Shadow Fiend","Phantom Lancer","Puck","Pudge","Razor","Sand King","Storm Spirit","Sven","Tiny","Vengeful Spirit","Windranger","Zeus","Kunkka","Lina","Lion","Shadow Shaman","Slardar","Tidehunter","Witch Doctor","Lich","Riki","Enigma","Tinker","Sniper","Necrophos","Warlock","Beastmaster","Queen of Pain","Venomancer","Faceless Void","Wraith King","Death Prophet","Phantom Assassin","Pugna","Templar Assassin","Viper","Luna","Dragon Knight","Dazzle","Clockwerk","Leshrac","Nature's Prophet","Lifestealer","Dark Seer","Clinkz","Omniknight","Enchantress","Huskar","Night Stalker","Broodmother","Bounty Hunter","Weaver","Jakiro","Batrider","Chen","Spectre","Ancient Apparition","Doom","Ursa","Spirit Breaker","Gyrocopter","Alchemist","Invoker","Silencer","Outworld Devourer","Lycan","Brewmaster","Shadow Demon","Lone Druid","Chaos Knight","Meepo","Treant Protector","Ogre Magi","Undying","Rubick","Disruptor","Nyx Assassin","Naga Siren","Keeper of the Light","Io","Visage","Slark","Medusa","Troll Warlord","Centaur Warrunner","Magnus","Timbersaw","Bristleback","Tusk","Skywrath Mage","Abaddon","Elder Titan","Legion Commander","Techies","Ember Spirit","Earth Spirit","Underlord","Terrorblade","Phoenix","Oracle","Winter Wyvern","Arc Warden","Monkey King","Dark Willow","Pangolier","Grimstroke","Void Spirit","Snapfire","Mars"];
 const gameModes = ["Unknown", "All Pick", "Captains Mode", "Random Draft", "Single Draft", "All Random", "Intro", "Diretide", "Reverse Captains Mode", "The Greeviling", "Tutorial", "Mid Only", "Least Played", "Limited Heroes", "Compendium", "Custom", "Captains Draft", "Balanced Draft", "Ability Draft", "Event", "All Random Deathmatch", "1v1 Solo Mid", "All Draft", "Turbo", "Mutation"]
 
+function formatDate(date) {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+  
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    // monthIndex = monthIndex.substring(0,3);
+    var year = date.getFullYear();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+  
+    return day + ' ' + monthNames[monthIndex].substring(0,3) + ' ' + year + ' ' + hour + ':' + minute;
+}
+
 /* ---------------------------- Fetch player list --------------------------- */
 function getPlayerList (query) {
     query = encodeURIComponent(query);
@@ -94,18 +112,20 @@ function displaySearchResults (data) {
     const resultsAmount = 3;
 
 /* ---------------- Put the search bar at the top of the page --------------- */
-    const searchForm = `<form>
-                            <h5>Dota2 Player Search</h5>
-                            <label for="player-search">Player Search</label>
-                            <input type="text" id="player-search" placeholder="try Pete or Dendi or Arteezy">
-                            <button>Search</button>
-                        </form>`;
+    const searchForm = `
+                            <form class="header-form">
+                                <h5>Dota2 Player Search</h5>
+                                <label for="player-search">Player Search</label>
+                                <input type="text" id="player-search" placeholder="try Pete or Dendi or Arteezy">
+                                <button>Search</button>
+                            </form>
+                        `;
     let searchResults = `<ul>`;
     $('header').empty().append(searchForm);
 
 /* ------------------------- Add search results list ------------------------ */
     for (let i = 0; i < resultsAmount; i++) {
-        searchResults += `<li class="greybox1" id="${data[i].account_id}">
+        searchResults += `<li id="${data[i].account_id}">
                             <div class="result-header">
                                 <img src="${data[i].avatarfull}" />
                                 <h2>${data[i].personaname}</h2>
@@ -145,7 +165,7 @@ function populatePlayerData (data, accountID) {
 
 function populatePlayerRecentMatches (data, accountID) {
 
-    $(`.${accountID}-matches`).append(`<table class="${accountID}-matches-table">
+    $(`.${accountID}-matches`).append(`<table class="${accountID}-matches-table recent-matches">
                                             <tr>
                                                 <th>Time</th>
                                                 <th>Mode</th>
@@ -153,7 +173,7 @@ function populatePlayerRecentMatches (data, accountID) {
                                                 <th>Kills</th>
                                                 <th>Deaths</th>
                                                 <th>Assists</th>
-                                                <th>Gold/Min</th>
+                                                <th>Gold /Min</th>
                                                 <th>Last Hits</th>
                                             </tr>
                                         </table>
@@ -163,9 +183,9 @@ function populatePlayerRecentMatches (data, accountID) {
     let matches = ``;
     for (let i = 0; i < 5; i++) {   // The start_time property is formatted in Epoch time
         matches += `<tr class="matchid-${data[i].match_id}">
-        <td>${new Date(data[i].start_time * 1000)}</td>
+        <td>${formatDate(new Date(data[i].start_time * 1000))}</td>
         <td>${gameModes[data[i].game_mode]}</td>
-        <td>${heroNames[data[i].hero_id]}</td>
+        <td><img src="resources/hero-images/${data[i].hero_id}.png" class="hero" /> ${heroNames[data[i].hero_id]}</td>
         <td>${data[i].kills}</td><td>${data[i].deaths}</td>
         <td>${data[i].assists}</td>
         <td>${data[i].gold_per_min}</td>
@@ -177,9 +197,9 @@ function populatePlayerRecentMatches (data, accountID) {
     let showMoreMatches = ``;
     for (let i = 5; i < 20; i++) {   // The start_time property is formatted in Epoch time
         showMoreMatches += `<tr class="matchid-${data[i].match_id}">
-        <td>${new Date(data[i].start_time * 1000)}</td>
+        <td>${formatDate(new Date(data[i].start_time * 1000))}</td>
         <td>${gameModes[data[i].game_mode]}</td>
-        <td>${heroNames[data[i].hero_id]}</td>
+        <td><img src="resources/hero-images/${data[i].hero_id}.png" class="hero" /> ${heroNames[data[i].hero_id]}</td>
         <td>${data[i].kills}</td><td>${data[i].deaths}</td>
         <td>${data[i].assists}</td>
         <td>${data[i].gold_per_min}</td>
@@ -208,7 +228,7 @@ function populatePlayerHeroes (data, accountID) {
     let heroes = ``;
     for (let i = 0; i < 5; i++) {
         heroes += `<tr>
-                        <td>${heroNames[data[i].hero_id]}</td>
+                        <td><img src="resources/hero-images/${data[i].hero_id}.png" class="hero" /> ${heroNames[data[i].hero_id]}</td>
                         <td>${data[i].games}</td>
                         <td>${Math.round((data[i].win / data[i].games) * 100)}%</td>
                     </tr>`
@@ -244,7 +264,7 @@ function populatePlayerHeroes (data, accountID) {
     let bestMatchups = ``;
     for (let i = 0; i < 5; i++) {
         bestMatchups += `<tr>
-                            <td>${heroNames[minGamesAgainst[i].hero_id]}</td>
+                            <td><img src="resources/hero-images/${minGamesAgainst[i].hero_id}.png" class="hero" /> ${heroNames[minGamesAgainst[i].hero_id]}</td>
                             <td>${Math.round((minGamesAgainst[i].against_win / minGamesAgainst[i].against_games) * 100)}%</td>
                         </tr>`
     }
@@ -255,7 +275,7 @@ function populatePlayerHeroes (data, accountID) {
     let worstMatchups = ``;
     for (let i = 0; i < 5; i++) {
         worstMatchups += `<tr>
-                            <td>${heroNames[minGamesAgainst[i].hero_id]}</td>
+                            <td><img src="resources/hero-images/${minGamesAgainst[i].hero_id}.png" class="hero" /> ${heroNames[minGamesAgainst[i].hero_id]}</td>
                             <td>${Math.round((minGamesAgainst[i].against_win / minGamesAgainst[i].against_games) * 100)}%</td>
                         </tr>`
     }
