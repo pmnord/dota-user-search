@@ -11,13 +11,7 @@ header {
     align-items: center;
     justify-content: center;
 }
-h5 {
-    display: block;
-    margin: 5px auto;
-    font-family: 'Righteous', cursive;
-    color: black;
-    background-color: white;
-}
+
 
 body {
     background-image: url("resources/barfight_by_jasonwang7_d81e9gl.png");
@@ -25,6 +19,10 @@ body {
     background-repeat: no-repeat;
     background-color: black;
     background-position: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     text-align: center;
     margin: 0;
@@ -34,13 +32,50 @@ body {
 h1, h2 {
     font-family: 'Righteous', cursive;
 }
+h1 {
+    color: #AC2E16;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: hsl(0,0%,0%,0.8);
+    font-size: 2.1rem;
+
+}
+h5 {
+    display: block;
+    margin: 5px auto;
+    font-family: 'Righteous', cursive;
+    color: #8D3020;
+    display: none;
+}
+a {
+    color: #57515E;
+}
+
 
 form {
     margin: 0 auto;
 }
+.landing-form {
+    margin-bottom: 100px;
+}
+.landing-form input {
+    border: solid black 0.5px;
+}
+
 form input {
-    height: 30px;
+    height: 40px;
+    width: 300px;
+    padding: 5px;
+
     box-sizing: border-box;
+    border: solid white 0.5px;
+    border-radius: 3px;
+    background-color: hsl(0,0%,0%,0.8);
+    color: white;
+
+
+}
+form:focus {
+    border: solid black 0.1px;
 }
 form button {
     display: none;
@@ -76,20 +111,29 @@ ul {
 }
 li {
     width: 100%;
-    box-sizing: border-box;
-    text-align: left;
+    margin-bottom: 10px;
     padding: 10px;
+
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+
     font-size: 14px;
     font-weight: bold;
+    text-align: left;
 }
 li img {
     height: 100%;
 }
 li button {
     font-weight: bold;
+    border: none;
+    background-color: #A7A1AE;
+    width: 117.5px;
+    height: 20px;
+    box-sizing: border-box;
+    margin-left: 2px;
+    margin-top: 5px;
 }
 
 li .hero {
@@ -128,8 +172,6 @@ table {
     width: 100%;
 }
 
-<<<<<<< HEAD
-=======
 th, td {
     background-color: #B2EBC1;
     /* padding: 1px; */
@@ -142,6 +184,10 @@ footer {
     font-size: 0.8rem;
     margin-top: 50px;
     padding: 1px;
+    color: #B0B0B0;
+}
+footer a {
+    color: #97919E;
 }
 
 .greybox1 {
@@ -157,7 +203,6 @@ footer {
 }
 
 
->>>>>>> ec0b76cfa2d83b6132075382bc9aa38ced770d0e
 @media screen and (min-width:600px) {
     
     .header-form {
