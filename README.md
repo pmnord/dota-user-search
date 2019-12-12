@@ -8,16 +8,13 @@ Try searching Pete or Dendi or Arteezy. You can enter almost any value, and the 
 
 ### Todos
 
-1. Format match dates more neatly
-1. Style the app
-1. Find a banner image/background
-1. Handle edgecases: 
-    - ~~Search returns no results~~
-    - ~~Fewer results than our display for loop~~
-    - ~~Too few recent matches for the 'show more' button~~
-    - ~~No games played with hero in heroes array~~
-    - Undefined returned when we try to access data 
-
+**Edgecases:** 
+- ~~Search returns no results~~
+- ~~Fewer results than our display for loop~~
+- ~~Too few recent matches for the 'show more' button~~
+- ~~No games played with hero in heroes array~~
+- ~~Undefined returned when we try to access data~~
+    - This was actually being caused by an error in the heroNames object
 
 ### Notes
 

@@ -4,8 +4,128 @@
 
 const Store = {};
 
-const heroNames = ["Anti-Mage","Axe","Bane","Bloodseeker","Crystal Maiden","Drow Ranger","Earthshaker","Juggernaut","Mirana","Morphling","Shadow Fiend","Phantom Lancer","Puck","Pudge","Razor","Sand King","Storm Spirit","Sven","Tiny","Vengeful Spirit","Windranger","Zeus","Kunkka","Lina","Lion","Shadow Shaman","Slardar","Tidehunter","Witch Doctor","Lich","Riki","Enigma","Tinker","Sniper","Necrophos","Warlock","Beastmaster","Queen of Pain","Venomancer","Faceless Void","Wraith King","Death Prophet","Phantom Assassin","Pugna","Templar Assassin","Viper","Luna","Dragon Knight","Dazzle","Clockwerk","Leshrac","Nature's Prophet","Lifestealer","Dark Seer","Clinkz","Omniknight","Enchantress","Huskar","Night Stalker","Broodmother","Bounty Hunter","Weaver","Jakiro","Batrider","Chen","Spectre","Ancient Apparition","Doom","Ursa","Spirit Breaker","Gyrocopter","Alchemist","Invoker","Silencer","Outworld Devourer","Lycan","Brewmaster","Shadow Demon","Lone Druid","Chaos Knight","Meepo","Treant Protector","Ogre Magi","Undying","Rubick","Disruptor","Nyx Assassin","Naga Siren","Keeper of the Light","Io","Visage","Slark","Medusa","Troll Warlord","Centaur Warrunner","Magnus","Timbersaw","Bristleback","Tusk","Skywrath Mage","Abaddon","Elder Titan","Legion Commander","Techies","Ember Spirit","Earth Spirit","Underlord","Terrorblade","Phoenix","Oracle","Winter Wyvern","Arc Warden","Monkey King","Dark Willow","Pangolier","Grimstroke","Void Spirit","Snapfire","Mars"];
-const gameModes = ["Unknown", "All Pick", "Captains Mode", "Random Draft", "Single Draft", "All Random", "Intro", "Diretide", "Reverse Captains Mode", "The Greeviling", "Tutorial", "Mid Only", "Least Played", "Limited Heroes", "Compendium", "Custom", "Captains Draft", "Balanced Draft", "Ability Draft", "Event", "All Random Deathmatch", "1v1 Solo Mid", "All Draft", "Turbo", "Mutation"]
+const heroNames = {
+    "1": "Anti-Mage",
+    "2": "Axe",
+    "3": "Bane",
+    "4": "Bloodseeker",
+    "5": "Crystal Maiden",
+    "6": "Drow Ranger",
+    "7": "Earthshaker",
+    "8": "Juggernaut",
+    "9": "Mirana",
+    "10": "Morphling",
+    "11": "Shadow Fiend",
+    "12": "Phantom Lancer",
+    "13": "Puck",
+    "14": "Pudge",
+    "15": "Razor",
+    "16": "Sand King",
+    "17": "Storm Spirit",
+    "18": "Sven",
+    "19": "Tiny",
+    "20": "Vengeful Spirit",
+    "21": "Windranger",
+    "22": "Zeus",
+    "23": "Kunkka",
+    "25": "Lina",
+    "26": "Lion",
+    "27": "Shadow Shaman",
+    "28": "Slardar",
+    "29": "Tidehunter",
+    "30": "Witch Doctor",
+    "31": "Lich",
+    "32": "Riki",
+    "33": "Enigma",
+    "34": "Tinker",
+    "35": "Sniper",
+    "36": "Necrophos",
+    "37": "Warlock",
+    "38": "Beastmaster",
+    "39": "Queen of Pain",
+    "40": "Venomancer",
+    "41": "Faceless Void",
+    "42": "Wraith King",
+    "43": "Death Prophet",
+    "44": "Phantom Assassin",
+    "45": "Pugna",
+    "46": "Templar Assassin",
+    "47": "Viper",
+    "48": "Luna",
+    "49": "Dragon Knight",
+    "50": "Dazzle",
+    "51": "Clockwerk",
+    "52": "Leshrac",
+    "53": "Nature's Prophet",
+    "54": "Lifestealer",
+    "55": "Dark Seer",
+    "56": "Clinkz",
+    "57": "Omniknight",
+    "58": "Enchantress",
+    "59": "Huskar",
+    "60": "Night Stalker",
+    "61": "Broodmother",
+    "62": "Bounty Hunter",
+    "63": "Weaver",
+    "64": "Jakiro",
+    "65": "Batrider",
+    "66": "Chen",
+    "67": "Spectre",
+    "68": "Ancient Apparition",
+    "69": "Doom",
+    "70": "Ursa",
+    "71": "Spirit Breaker",
+    "72": "Gyrocopter",
+    "73": "Alchemist",
+    "74": "Invoker",
+    "75": "Silencer",
+    "76": "Outworld Devourer",
+    "77": "Lycan",
+    "78": "Brewmaster",
+    "79": "Shadow Demon",
+    "80": "Lone Druid",
+    "81": "Chaos Knight",
+    "82": "Meepo",
+    "83": "Treant Protector",
+    "84": "Ogre Magi",
+    "85": "Undying",
+    "86": "Rubick",
+    "87": "Disruptor",
+    "88": "Nyx Assassin",
+    "89": "Naga Siren",
+    "90": "Keeper of the Light",
+    "91": "Io",
+    "92": "Visage",
+    "93": "Slark",
+    "94": "Medusa",
+    "95": "Troll Warlord",
+    "96": "Centaur Warrunner",
+    "97": "Magnus",
+    "98": "Timbersaw",
+    "99": "Bristleback",
+    "100": "Tusk",
+    "101": "Skywrath Mage",
+    "102": "Abaddon",
+    "103": "Elder Titan",
+    "104": "Legion Commander",
+    "105": "Techies",
+    "106": "Ember Spirit",
+    "107": "Earth Spirit",
+    "108": "Underlord",
+    "109": "Terrorblade",
+    "110": "Phoenix",
+    "111": "Oracle",
+    "112": "Winter Wyvern",
+    "113": "Arc Warden",
+    "114": "Monkey King",
+    "119": "Dark Willow",
+    "120": "Pangolier",
+    "121": "Grimstroke",
+    "126": "Void Spirit",
+    "128": "Snapfire",
+    "129": "Mars"
+  };
+const gameModes = ["Unknown", "All Pick", "Captains Mode", "Random Draft", "Single Draft", "All Random", "Intro", "Diretide", "Reverse Captains Mode", "The Greeviling", "Tutorial", "Mid Only", "Least Played", "Limited Heroes", "Compendium", "Custom", "Captains Draft", "Balanced Draft", "Ability Draft", "Event", "All Random Deathmatch", "1v1 Solo Mid", "All Draft", "Turbo", "Mutation"];
 
 function formatDate(date) {
     var monthNames = [
@@ -123,15 +243,15 @@ function displaySearchResults (data) {
 
 
 /* ---------------- Put the search bar at the top of the page --------------- */
-    const searchForm = `
-                            <form class="header-form">
+    const searchForm = `<form class="header-form">
                                 <h5>Dota2 Player Search</h5>
-                                <label for="player-search">Player Search</label>
-                                <input type="text" id="player-search" placeholder="try Pete or Dendi or Arteezy" required>
-                                <p class="error"> </p>
-                                <button>Search</button>
-                            </form>
-                        `;
+                                <div>
+                                    <label for="player-search">Player Search</label>
+                                    <input type="text" id="player-search" placeholder="try Pete or Dendi or Arteezy" required>
+                                    <button>Go</button>
+                                    <p class="error"> </p>
+                                </div>
+                            </form>`;
     let searchResults = `<ul>`;
     $('header').empty().append(searchForm);
 
