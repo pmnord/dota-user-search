@@ -1,7 +1,8 @@
 # Dota2 Player Stats Lookup
 
 Live Demo: https://pmnord.github.io/dota-player-lookup/
-> Try searching Pete or Dendi or Arteezy. You can enter almost any value, and the Open Dota API will search for player usernames with that value.  Results will be sorted based on recent account activity.
+
+Try searching Pete or Dendi or Arteezy. You can enter almost any value, and the Open Dota API will search for player usernames with that value.  Results will be sorted based on recent account activity.
 
 **Limited to 6 searches per minute. Each search makes 10 calls to the API and the API is limited to 60/minute.**
 
@@ -10,6 +11,13 @@ Live Demo: https://pmnord.github.io/dota-player-lookup/
 1. Format match dates more neatly
 1. Style the app
 1. Find a banner image/background
+1. Handle edgecases: 
+    - ~~Search returns no results~~
+    - ~~Fewer results than our display for loop~~
+    - ~~Too few recent matches for the 'show more' button~~
+    - ~~No games played with hero in heroes array~~
+    - Undefined returned when we try to access data 
+
 
 ### Notes
 

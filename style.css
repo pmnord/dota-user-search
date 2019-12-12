@@ -1,3 +1,7 @@
+.hidden {
+    display: none;
+}
+
 header {
     height: 100px;
 }
@@ -16,7 +20,7 @@ header {
 body {
     background-image: url("resources/barfight_by_jasonwang7_d81e9gl.png");
     background-size: cover;
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     background-color: black;
     background-position: center center;
 
@@ -54,6 +58,10 @@ a {
 form {
     margin: 0 auto;
 }
+form input:focus {
+    outline: none;
+    border: solid 0.5px orange;
+}
 .landing-form {
     margin-bottom: 220px;
 }
@@ -71,8 +79,15 @@ form input {
     border-radius: 3px;
     background-color: hsl(0,0%,0%,0.8);
     color: white;
+}
+.error {
+    color: #AC2E16;
+    font-size: 1.5rem;
+    font-weight: 800;
+    width: 75%;
+    margin: 10px auto;
 
-
+    background-color: hsl(0,0%,0%,0.8);
 }
 form:focus {
     border: solid black 0.1px;
@@ -201,18 +216,13 @@ footer {
 footer a {
     color: #97919E;
 }
+.social-links {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 70px;
+}
 
-.greybox1 {
-    background-color: #344539;
-}
-.greybox2 {
-    background-color: #82AB8D;
-    border: solid 1px white;
-}
-.greybox3 {
-    background-color: #82AB8D;
-    border: solid 1px white;
-}
 
 
 @media screen and (min-width:700px) {
@@ -250,10 +260,7 @@ footer a {
         height: 3rem;
         font-size: 2rem;
     }
-    form input:focus {
-        outline: none;
-        border: solid 0.5px orange;
-    }
+    
     
     h5 {
         margin: 5px 0;

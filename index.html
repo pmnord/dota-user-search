@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dota2 Player Search</title>
+    <script src="https://kit.fontawesome.com/e0ef984180.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Righteous&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -14,7 +15,8 @@
         <h1>Dota2 Player Search</h1>
         <form class="landing-form">
             <label for="player-search">Player Search</label>
-            <input type="text" id="player-search" placeholder="try Pete or Dendi or Arteezy">
+            <input type="text" id="player-search" placeholder="try Pete or Dendi or Arteezy"  required>
+            <p class="error"></p>
             <button>Search</button>
         </form>
     </main>
@@ -24,6 +26,16 @@
         <p>Data provided by <a href="https://docs.opendota.com/" target="_blank">Open Dota API</a></p>
         <p>Dota and the Dota logo are trademarks and/or registered trademarks of Valve Corporation</p>
         <p>Background image provided under <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank">Creative Commons License</a>, Copyright <a href="https://www.deviantart.com/jasonwang7/art/Barfight-486074469" target="_blank">Jason Wang</a></p>
+        <div class="social-links">
+            <a href="https://github.com/pmnord" target="_blank" class="nav-button">
+                <i class="fab fa-github fa-2x"></i>
+                <p class="hidden">Github</p>
+            </a>
+            <a href="https://www.linkedin.com/in/peter-nordman-57528432/" target="_blank" class="nav-button">
+                <i class="fab fa-linkedin-in fa-2x"></i>
+                <p class="hidden">LinkedIn</p>
+            </a>
+        </div>
     </footer>
 
     <script

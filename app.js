@@ -21,8 +21,9 @@ function formatDate(date) {
     var year = date.getFullYear();
     var hour = date.getHours();
     var minute = date.getMinutes();
+    var second = date.getSeconds();
   
-    return day + ' ' + monthNames[monthIndex].substring(0,3) + ' ' + year + ' ' + hour + ':' + minute;
+    return day + ' ' + monthNames[monthIndex].substring(0,3) + ' ' + year + ' ' + hour + ':' + minute + ':' + second;
 }
 
 /* ---------------------------- Fetch player list --------------------------- */
@@ -37,9 +38,16 @@ function getPlayerList (query) {
             throw new Error(response.statusText);
         }})
     .then(responseJSON => {
-        displaySearchResults(responseJSON);
+        if (responseJSON.length > 0) {
+            displaySearchResults(responseJSON);
+        } else {
+            throw new Error("No search results found")
+        }
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+        console.log(error);
+        $('.error').text(`${error}`);
+    })
 };
 
 
@@ -107,16 +115,20 @@ function displaySearchResults (data) {
     data = data.slice(0, 10);
     data = data.filter(each => each.last_match_time);
     data.sort((a,b) => {return a.last_match_time < b.last_match_time ? 1 : b.last_match_time < a.last_match_time ? -1 : 0});
-    console.log('search results', data);
 
-    const resultsAmount = 3;
+    let resultsAmount = 3;
+    if (data.length < resultsAmount) { // Handle edgecase where there are few results
+        resultsAmount = data.length;
+    };
+
 
 /* ---------------- Put the search bar at the top of the page --------------- */
     const searchForm = `
                             <form class="header-form">
                                 <h5>Dota2 Player Search</h5>
                                 <label for="player-search">Player Search</label>
-                                <input type="text" id="player-search" placeholder="try Pete or Dendi or Arteezy">
+                                <input type="text" id="player-search" placeholder="try Pete or Dendi or Arteezy" required>
+                                <p class="error"> </p>
                                 <button>Search</button>
                             </form>
                         `;
@@ -176,8 +188,7 @@ function populatePlayerRecentMatches (data, accountID) {
                                                 <th>Gold /Min</th>
                                                 <th>Last Hits</th>
                                             </tr>
-                                        </table>
-                                        <button class="${accountID}-show-more">Show More</button>`
+                                        </table>`
     );
 
     let matches = ``;
@@ -193,6 +204,30 @@ function populatePlayerRecentMatches (data, accountID) {
     </tr>`
     }
     $(`.${accountID}-matches-table`).append(matches);
+
+    if (data.length > 5) { // Handle edgecase: Less than 5 total matches in history
+        let showMoreMatches = ``;
+
+        for (let i = 5; i < 20; i++) {   // The start_time property is formatted in Epoch time
+            showMoreMatches += `<tr class="matchid-${data[i].match_id}">
+            <td>${formatDate(new Date(data[i].start_time * 1000))}</td>
+            <td>${gameModes[data[i].game_mode]}</td>
+            <td><img src="resources/hero-images/${data[i].hero_id}.png" class="hero" /> ${heroNames[data[i].hero_id]}</td>
+            <td>${data[i].kills}</td><td>${data[i].deaths}</td>
+            <td>${data[i].assists}</td>
+            <td>${data[i].gold_per_min}</td>
+            <td>${data[i].last_hits}</td>
+        </tr>`
+        }
+
+        Store[accountID] = showMoreMatches;
+        $(`.${accountID}-show-more`).on('click', function(){
+            $(`.${accountID}-show-more`).remove();
+            $(`.${accountID}-matches-table`).append(Store[accountID]);
+        });
+
+        $(`.${accountID}-matches`).append(`<button class="${accountID}-show-more">Show More</button>`)
+    }
 
     let showMoreMatches = ``;
     for (let i = 5; i < 20; i++) {   // The start_time property is formatted in Epoch time
@@ -227,11 +262,13 @@ function populatePlayerHeroes (data, accountID) {
 
     let heroes = ``;
     for (let i = 0; i < 5; i++) {
-        heroes += `<tr>
-                        <td><img src="resources/hero-images/${data[i].hero_id}.png" class="hero" /> ${heroNames[data[i].hero_id]}</td>
-                        <td>${data[i].games}</td>
-                        <td>${Math.round((data[i].win / data[i].games) * 100)}%</td>
-                    </tr>`
+        if (data[i].games > 0) { // Handle edgecase: No games played with hero
+            heroes += `<tr>
+                            <td><img src="resources/hero-images/${data[i].hero_id}.png" class="hero" /> ${heroNames[data[i].hero_id]}</td>
+                            <td>${data[i].games}</td>
+                            <td>${Math.round((data[i].win / data[i].games) * 100)}%</td>
+                        </tr>`
+        }
     }
     $(`.${accountID}-heroes-table`).append(heroes);
 
