@@ -4,7 +4,21 @@ Live Demo: https://pmnord.github.io/dota-player-lookup/
 
 Try searching Pete or Dendi or Arteezy. You can enter almost any value, and the Open Dota API will search for player usernames with that value.  Results will be sorted based on recent account activity.
 
-**Limited to 6 searches per minute. Each search makes 10 calls to the API and the API is limited to 60/minute.**
+**Limited to 6 searches per minute. Each search makes 10 calls to the API (one for the search, three for each of the three user profiles) and the API is limited to 60/minute.**
+
+## Technologies Used
+- HTML5
+- CSS3
+- JavaScript
+- jQuery
+- AJAX
+
+## Screenshots
+![Desktop Landing Page](/screenshots/dota-app-ss-1.png)
+![Desktop Search Results](/screenshots/dota-app-ss-2.png)
+
+![Mobile Landing Page](/screenshots/dota-app-ss-mobile-1.png)
+![Mobile Search Results](/screenshots/dota-app-ss-mobile-2.png)
 
 ## User Stories
 

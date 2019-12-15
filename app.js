@@ -153,7 +153,7 @@ function getPlayerList (query) {
     fetch(`https://api.opendota.com/api/search?q=` + query)
     .then(response => {
         if (response.ok) {
-            return response.json()
+            return response.json();
         } else {
             throw new Error(response.statusText);
         }})
@@ -161,7 +161,7 @@ function getPlayerList (query) {
         if (responseJSON.length > 0) {
             displaySearchResults(responseJSON);
         } else {
-            throw new Error("No search results found")
+            throw new Error("No search results found");
         }
     })
     .catch(error => {
@@ -185,7 +185,7 @@ function getPlayerData(accountID) {
     .then(responseJSON => {
         populatePlayerData(responseJSON, accountID);
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log(error));
 }
 
 
@@ -234,12 +234,12 @@ function displaySearchResults (data) {
     // Filter the search results to provide most recently active players first
     data = data.slice(0, 10);
     data = data.filter(each => each.last_match_time);
-    data.sort((a,b) => {return a.last_match_time < b.last_match_time ? 1 : b.last_match_time < a.last_match_time ? -1 : 0});
+    data.sort((a, b) => {return a.last_match_time < b.last_match_time ? 1 : b.last_match_time < a.last_match_time ? -1 : 0});
 
     let resultsAmount = 3;
     if (data.length < resultsAmount) { // Handle edgecase where there are few results
         resultsAmount = data.length;
-    };
+    }
 
 
 /* ---------------- Put the search bar at the top of the page --------------- */
@@ -265,7 +265,7 @@ function displaySearchResults (data) {
                             </div>
                             <div class="${data[i].account_id}-heroes heroes"></div>
                             <div class="${data[i].account_id}-matches"><h3>Recent Matches</h3></div>
-                        </li>`
+                        </li>`;
     }
     searchResults += `</ul>`;
     $('main').empty().append(searchResults);
@@ -292,7 +292,8 @@ function populatePlayerData (data, accountID) {
                                             <td>${data.rank_tier || 'Unranked'}</td>
                                             <td><a href="${data.profile.profileurl}" target="_blank">Link</a></td>
                                         </tr>
-                                    </table>`);
+                                    </table>`
+    );
 }
 
 function populatePlayerRecentMatches (data, accountID) {
@@ -311,7 +312,7 @@ function populatePlayerRecentMatches (data, accountID) {
                                         </table>`
     );
 
-    let matches = ``;
+    let matches = '';
     for (let i = 0; i < 5; i++) {   // The start_time property is formatted in Epoch time
         matches += `<tr class="matchid-${data[i].match_id}">
         <td>${formatDate(new Date(data[i].start_time * 1000))}</td>
@@ -321,7 +322,7 @@ function populatePlayerRecentMatches (data, accountID) {
         <td>${data[i].assists}</td>
         <td>${data[i].gold_per_min}</td>
         <td>${data[i].last_hits}</td>
-    </tr>`
+    </tr>`;
     }
     $(`.${accountID}-matches-table`).append(matches);
 
@@ -337,7 +338,7 @@ function populatePlayerRecentMatches (data, accountID) {
             <td>${data[i].assists}</td>
             <td>${data[i].gold_per_min}</td>
             <td>${data[i].last_hits}</td>
-        </tr>`
+        </tr>`;
         }
 
         Store[accountID] = showMoreMatches;
@@ -359,7 +360,7 @@ function populatePlayerRecentMatches (data, accountID) {
         <td>${data[i].assists}</td>
         <td>${data[i].gold_per_min}</td>
         <td>${data[i].last_hits}</td>
-    </tr>`
+    </tr>`;
     }
     Store[accountID] = showMoreMatches;
     $(`.${accountID}-show-more`).on('click', function(){
