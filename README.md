@@ -14,11 +14,14 @@ Try searching Pete or Dendi or Arteezy. You can enter almost any value, and the 
 - AJAX
 
 ## Screenshots
-![Desktop Landing Page](/screenshots/dota-app-ss-1.png)
-![Desktop Search Results](/screenshots/dota-app-ss-2.png)
 
-![Mobile Landing Page](/screenshots/dota-app-ss-mobile-1.png)
-![Mobile Search Results](/screenshots/dota-app-ss-mobile-2.png)
+**Landing Page**
+
+![Desktop Landing Page](/screenshots/dota-app-ss-1.png)
+
+**Search Results**
+
+![Desktop Search Results](/screenshots/dota-app-ss-2.png)
 
 ## User Stories
 
