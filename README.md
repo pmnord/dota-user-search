@@ -28,16 +28,14 @@ Try searching Pete or Dendi or Arteezy. You can enter almost any value, and the 
 | Role  | Task  | Importance  |
 |---|---|---|
 | As a new user  | I want to understand how to use the search input  | High  |
-| As a new user  | I want to be able to choose from a list of search results  | High  |
-| As a new user  | I want to look up my own stats to better understand my performance  | High  |
-| As a new user  | I want to look up other people's stats to learn their strengths and weakness  | High  |
+| As a new user  | I want to look up player stats to better understand their performance  | High  |
 | As a new user  | I want to look up my team stats to see our performance  | Medium  |
 | As a new user  | I want to look up other team's stats to learn their strengths and weakness  | Medium  |
 | As a returning user  | I want to see generally relevant stats on the starting view  | Medium  |
-| As a returning user  | I want to do multiple searches in a row for deeper research  | Medium  |
-| As a returning user  | I want to get links to further information for deeper research | Medium  |
+| As a returning user  | I want to easly do multiple searches | Medium  |
+| As a returning user  | I want to get links to further player information | Medium  |
 | As a returning user  | I want to share the data that I've found with others  | Low  |
-| As an administrator  | I want to add new data to player pages to show the user  | High  |
+| As an administrator  | I want to expand the data shown in player searches  | High  |
 | As an administrator  | I want to add new types of searches and data  | Low  |
 | As a color-blind user  | I want to be able to clearly see the data on the page  | High  |
 | As a blind user  | I want to navigate the page with a keyboard  | High  |
@@ -76,5 +74,5 @@ Try searching Pete or Dendi or Arteezy. You can enter almost any value, and the 
 
 ### Notes
 
-This project has definitely showed me the limitations of working with a small number of API calls - I would like to add further search refinement and player details, but it would require many more calls to the API
+This project has shown me the limitations of working with a small number of API calls - I would like to add further search refinement and player details, but it would require many more calls to the API
 - For example, showing the user a player's performance stats compared to the average player performance - which would recall a separate API call for each hero to get the average performance
