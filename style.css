@@ -19,7 +19,6 @@ header {
     font-size: 16px;
 }
 
-
 body {
     background-image: url("resources/barfight_by_jasonwang7_d81e9gl.png");
     background-size: cover;
@@ -36,16 +35,30 @@ body {
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
 }
+
 h1, h2 {
     font-family: 'Righteous', cursive;
 }
+
 h1 {
     color: #AC2E16;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: hsl(0,0%,0%,0.8);
     font-size: 2.1rem;
-
 }
+
+h2 {
+    color: white;
+    font-weight: normal;
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 5px;
+    background-color: #82AB8D;
+    width: 100%;
+}
+
 h5 {
     display: block;
     margin: 5px auto;
@@ -53,25 +66,19 @@ h5 {
     color: #8D3020;
     display: none;
 }
+
 a {
     color: #57515E;
 }
 
-
 form {
     margin: 0 auto;
 }
+
 form input:focus {
     outline: none;
     border: solid 0.5px orange;
 }
-.landing-form {
-    margin-bottom: 220px;
-}
-.landing-form input {
-    border: solid black 0.5px;
-}
-
 form input {
     height: 40px;
     width: 275px;
@@ -83,13 +90,6 @@ form input {
     background-color: hsl(0,0%,0%,0.8);
     color: white;
 }
-.error {
-    color: #AC2E16;
-    font-size: 16px;
-    font-weight: 800;
-
-    background-color: hsl(0,0%,0%,0.8);
-}
 form:focus {
     border: solid black 0.1px;
 }
@@ -99,7 +99,6 @@ form button {
     width: 40px;
     height: 40px;
     box-sizing: border-box;
-
     font-family: 'Righteous', cursive;
     color: black;
     font-weight: bold;
@@ -107,9 +106,29 @@ form button {
     border-radius: 3px;
     background-color: hsl(8.8, 63%, 33.9%);
 }
-
 form label {
     display: none;
+}
+
+.landing-form {
+    margin-bottom: 150px;
+}
+.landing-form input {
+    border: solid black 0.5px;
+}
+
+.error {
+    color: #AC2E16;
+    font-size: 20px;
+    font-weight: 800;
+    background-color: hsl(0,0%,0%,0.8);
+}
+
+.app-instructions {
+    background-color: hsl(138, 14%, 24%, 0.9);
+    color: white;
+    margin: 4px;
+    padding: 4px;
 }
 
 footer {
@@ -129,6 +148,7 @@ ul {
     padding: 0;
     margin: 0 auto;
 }
+
 li {
     width: 100%;
     margin-bottom: 10px;
@@ -156,7 +176,6 @@ li button {
     margin-left: 2px;
     margin-top: 5px;
 }
-
 li .hero {
     height: 25px;
 }
@@ -178,6 +197,7 @@ li .hero {
     display: grid;
     grid-template-columns: 100%;
 }
+
 .recent-matches {
     font-size: 11px;
     text-align: center;
@@ -186,32 +206,25 @@ li .hero {
     display: block;
     margin: 0 auto;
 }
-h2 {
-    color: white;
-    font-weight: normal;
-}
-h3 {
-    text-align: center;
-    margin-bottom: 5px;
-    background-color: #82AB8D;
-    width: 100%;
-}
+
 
 table {
     width: 100%;
 }
+
 th {
     background-color: #82AB8D;
 }
+
 td {
     background-color: #B2EBC1;
 }
+
 tr {
     border: 0;
     margin: 0;
     padding: 0;
 }
-
 
 footer {
     font-size: 0.8rem;
@@ -222,14 +235,13 @@ footer {
 footer a {
     color: #97919E;
 }
+
 .social-links {
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
     width: 70px;
 }
-
-
 
 @media screen and (min-width:700px) {
     
@@ -249,24 +261,32 @@ footer a {
         display: flex;
         align-items: center;
     }
+
     h1 {
         font-size: 3.3rem;
     }
+
     form {
         margin: 0 auto;
     }
-    .landing-form {
-        margin-bottom: 600px;
-    }
+
     form button {
         display: none;
     }
+
     form input {
         width: 500px;
         height: 3rem;
         font-size: 2rem;
     }
-    
+
+    .landing-form {
+        margin-bottom: 600px;
+    }
+
+    .app-instructions {
+        padding: 8px;
+    }
     
     h5 {
         margin: 5px 0;
@@ -283,6 +303,7 @@ footer a {
         margin: 0 auto;
         width: 100%;
     }
+
     li {
         width: 100%;
         box-sizing: border-box;
@@ -295,12 +316,15 @@ footer a {
         font-weight: normal;
         border: solid black 1px;
     }
+
     li img {
         height: 100%;
     }
+
     li button {
         font-weight: bold;
     }
+
     li .hero {
         display: inline-block;
     }
@@ -310,6 +334,7 @@ footer a {
         grid-template-columns: 12% 28% 60%;
         align-items: center;
     }
+
     .result-header h2 {
         padding: 0;
     }
@@ -318,10 +343,12 @@ footer a {
         display: grid;
         grid-template-columns: 33.3% 33.3% 33.3%;
     }
+
     .recent-matches {
         font-size: 16px;
         text-align: left;
     }
+
     h3 {
         text-align: center;
         margin-bottom: 5px;
@@ -331,9 +358,11 @@ footer a {
     table {
         width: 100%;
     }
+
     th {
         padding-left: 5px;
     }
+
     td {
         padding-left: 5px;
     }
@@ -342,8 +371,6 @@ footer a {
         font-size: 0.8rem;
         margin-top: 50px;
     }
-
-    
 }
 
 @media screen and (min-width: 1150px) {

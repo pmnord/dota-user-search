@@ -6,6 +6,10 @@ Try searching Pete or Dendi or Arteezy. You can enter almost any value, and the 
 
 **Limited to 6 searches per minute. Each search makes 10 calls to the API (one for the search, three for each of the three user profiles) and the API is limited to 60/minute.**
 
+## Summary
+
+This application allows users to look up DOTA players by their username and find competitive player performance information. DOTA player names are non-unique, which can make looking up users difficult. By displaying multiple profiles, profile images, and recent game information, users can much more easily identify the actual player they're searching for. The app also has very few click-throughs - just one search term and enter - to make player research relatively fast and easy.
+
 ## Technologies Used
 - HTML5
 - CSS3
@@ -28,23 +32,15 @@ Try searching Pete or Dendi or Arteezy. You can enter almost any value, and the 
 | Role  | Task  | Importance  |
 |---|---|---|
 | As a new user  | I want to understand how to use the search input  | High  |
-| As a new user  | I want to look up player stats to better understand their performance  | High  |
-| As a new user  | I want to look up my team stats to see our performance  | Medium  |
-| As a new user  | I want to look up other team's stats to learn their strengths and weakness  | Medium  |
-| As a returning user  | I want to see generally relevant stats on the starting view  | Medium  |
-| As a returning user  | I want to easly do multiple searches | Medium  |
-| As a returning user  | I want to get links to further player information | Medium  |
-| As a returning user  | I want to share the data that I've found with others  | Low  |
-| As an administrator  | I want to expand the data shown in player searches  | High  |
-| As an administrator  | I want to add new types of searches and data  | Low  |
-| As a color-blind user  | I want to be able to clearly see the data on the page  | High  |
+| As a new user  | I want to look up a player by their name  | High  |
+| As a new user  | I want to learn more about a player's performance stats  | High  |
+| As a new user  | I want to see a recent history of a player's games  | High  |
+| As a new user  | I want to find a player's steam profile and be linked there  | High  |
+| As a returning user  | I want to easly do multiple searches to research multiple players | Medium  |
+| As a color-blind user  | I want to have key information represented by more than just colors  | High  |
 | As a blind user  | I want to navigate the page with a keyboard  | High  |
 
 ## User Flow
-
-**Views**
-- Landing page
-- Search Results
 
 **What the user sees, what the user does, what happens**
 - Landing page with search input
@@ -55,24 +51,9 @@ Try searching Pete or Dendi or Arteezy. You can enter almost any value, and the 
         - If no results, displays "no results" to screen
 
 - Search Results List
-    - User clicks 'show more' for further information
-        - Additional data displayed to screen
+    - User clicks 'show more' on recent games
+        - Full list of recent matches from API displayed
     - User enters a new search term
         - User sees a new list of search results
-    - Clicks a link in search results
+    - User clicks a link in search results
         - Redirected off-site
-
-### Todos
-
-**Edgecases:** 
-- ~~Search returns no results~~
-- ~~Fewer results than our display for loop~~
-- ~~Too few recent matches for the 'show more' button~~
-- ~~No games played with hero in heroes array~~
-- ~~Undefined returned when we try to access data~~
-    - This was actually being caused by an error in the heroNames object
-
-### Notes
-
-This project has shown me the limitations of working with a small number of API calls - I would like to add further search refinement and player details, but it would require many more calls to the API
-- For example, showing the user a player's performance stats compared to the average player performance - which would recall a separate API call for each hero to get the average performance
