@@ -20,11 +20,8 @@ header {
 }
 
 body {
-    background-image: url("resources/barfight_by_jasonwang7_d81e9gl.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-color: black;
-    background-position: center center;
+    background: url("resources/barfight_by_jasonwang7_d81e9gl.png") no-repeat center 0 #2D1410;
+    /* background-size: 100% 100vh; */
 
     display: flex;
     flex-direction: column;
@@ -34,6 +31,7 @@ body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
+    height: 100vh;
 }
 
 h1, h2 {
@@ -85,7 +83,7 @@ form input {
     padding: 5px;
 
     box-sizing: border-box;
-    border: solid white 0.5px;
+    border: solid orange 0.5px;
     border-radius: 3px;
     background-color: hsl(0,0%,0%,0.8);
     color: white;
@@ -241,6 +239,7 @@ footer a {
     justify-content: space-between;
     margin: 0 auto;
     width: 70px;
+    margin-bottom: 7px;
 }
 
 @media screen and (min-width:700px) {

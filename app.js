@@ -104,6 +104,8 @@ function getPlayerHeroes (accountID) {
 /* -------------------------------------------------------------------------- */
 
 function displaySearchResults (data) {
+
+    $('body').css('height', 'auto'); // Remove the 100vh restriction that was set on the landing page
     
     // Filter the search results to provide most recently active players first
     data = data.slice(0, 10);
@@ -121,7 +123,7 @@ function displaySearchResults (data) {
                                 <h5>Dota2 Player Search</h5>
                                 <div>
                                     <label for="player-search">Player Search</label>
-                                    <input type="text" id="player-search" placeholder="try Pete or Dendi or Arteezy" required>
+                                    <input type="text" id="player-search" required>
                                     <button>Go</button>
                                     <p class="error"> </p>
                                 </div>
