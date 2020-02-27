@@ -136,14 +136,13 @@ function formatDate(date) {
     ];
   
     var day = date.getDate();
-    var monthIndex = date.getMonth();
-    // monthIndex = monthIndex.substring(0,3);
+    var month = monthNames[date.getMonth()].substring(0,3);
     var year = date.getFullYear();
     var hour = date.getHours();
     var minute = date.getMinutes();
     var second = date.getSeconds();
   
-    return day + ' ' + monthNames[monthIndex].substring(0,3) + ' ' + year + ' ' + hour + ':' + minute + ':' + second;
+    return day + ' ' + month + ' ' + year + ' ' + hour + ':' + minute + ':' + second;
 }
 
 /* ---------------------------- Fetch player list --------------------------- */
@@ -153,7 +152,7 @@ function getPlayerList (query) {
     fetch(`https://api.opendota.com/api/search?q=` + query)
     .then(response => {
         if (response.ok) {
-            return response.json()
+            return response.json();
         } else {
             throw new Error(response.statusText);
         }})
@@ -161,7 +160,7 @@ function getPlayerList (query) {
         if (responseJSON.length > 0) {
             displaySearchResults(responseJSON);
         } else {
-            throw new Error("No search results found")
+            throw new Error("No search results found");
         }
     })
     .catch(error => {
@@ -185,7 +184,7 @@ function getPlayerData(accountID) {
     .then(responseJSON => {
         populatePlayerData(responseJSON, accountID);
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log(error));
 }
 
 
@@ -265,7 +264,7 @@ function displaySearchResults (data) {
                             </div>
                             <div class="${data[i].account_id}-heroes heroes"></div>
                             <div class="${data[i].account_id}-matches"><h3>Recent Matches</h3></div>
-                        </li>`
+                        </li>`;
     }
     searchResults += `</ul>`;
     $('main').empty().append(searchResults);
@@ -321,8 +320,8 @@ function populatePlayerRecentMatches (data, accountID) {
         <td>${data[i].assists}</td>
         <td>${data[i].gold_per_min}</td>
         <td>${data[i].last_hits}</td>
-    </tr>`
-    }
+    </tr>`;
+    };
     $(`.${accountID}-matches-table`).append(matches);
 
     if (data.length > 5) { // Handle edgecase: Less than 5 total matches in history
@@ -337,7 +336,7 @@ function populatePlayerRecentMatches (data, accountID) {
             <td>${data[i].assists}</td>
             <td>${data[i].gold_per_min}</td>
             <td>${data[i].last_hits}</td>
-        </tr>`
+        </tr>`;
         }
 
         Store[accountID] = showMoreMatches;
@@ -346,7 +345,7 @@ function populatePlayerRecentMatches (data, accountID) {
             $(`.${accountID}-matches-table`).append(Store[accountID]);
         });
 
-        $(`.${accountID}-matches`).append(`<button class="${accountID}-show-more">Show More</button>`)
+        $(`.${accountID}-matches`).append(`<button class="${accountID}-show-more">Show More</button>`);
     }
 
     let showMoreMatches = ``;
@@ -360,7 +359,7 @@ function populatePlayerRecentMatches (data, accountID) {
         <td>${data[i].gold_per_min}</td>
         <td>${data[i].last_hits}</td>
     </tr>`
-    }
+    };
     Store[accountID] = showMoreMatches;
     $(`.${accountID}-show-more`).on('click', function(){
         $(`.${accountID}-show-more`).remove();
