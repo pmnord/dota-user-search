@@ -2,129 +2,8 @@
 /*                                  Model                                     */
 /* -------------------------------------------------------------------------- */
 
-const Store = {};
-
-const heroNames = {
-    "1": "Anti-Mage",
-    "2": "Axe",
-    "3": "Bane",
-    "4": "Bloodseeker",
-    "5": "Crystal Maiden",
-    "6": "Drow Ranger",
-    "7": "Earthshaker",
-    "8": "Juggernaut",
-    "9": "Mirana",
-    "10": "Morphling",
-    "11": "Shadow Fiend",
-    "12": "Phantom Lancer",
-    "13": "Puck",
-    "14": "Pudge",
-    "15": "Razor",
-    "16": "Sand King",
-    "17": "Storm Spirit",
-    "18": "Sven",
-    "19": "Tiny",
-    "20": "Vengeful Spirit",
-    "21": "Windranger",
-    "22": "Zeus",
-    "23": "Kunkka",
-    "25": "Lina",
-    "26": "Lion",
-    "27": "Shadow Shaman",
-    "28": "Slardar",
-    "29": "Tidehunter",
-    "30": "Witch Doctor",
-    "31": "Lich",
-    "32": "Riki",
-    "33": "Enigma",
-    "34": "Tinker",
-    "35": "Sniper",
-    "36": "Necrophos",
-    "37": "Warlock",
-    "38": "Beastmaster",
-    "39": "Queen of Pain",
-    "40": "Venomancer",
-    "41": "Faceless Void",
-    "42": "Wraith King",
-    "43": "Death Prophet",
-    "44": "Phantom Assassin",
-    "45": "Pugna",
-    "46": "Templar Assassin",
-    "47": "Viper",
-    "48": "Luna",
-    "49": "Dragon Knight",
-    "50": "Dazzle",
-    "51": "Clockwerk",
-    "52": "Leshrac",
-    "53": "Nature's Prophet",
-    "54": "Lifestealer",
-    "55": "Dark Seer",
-    "56": "Clinkz",
-    "57": "Omniknight",
-    "58": "Enchantress",
-    "59": "Huskar",
-    "60": "Night Stalker",
-    "61": "Broodmother",
-    "62": "Bounty Hunter",
-    "63": "Weaver",
-    "64": "Jakiro",
-    "65": "Batrider",
-    "66": "Chen",
-    "67": "Spectre",
-    "68": "Ancient Apparition",
-    "69": "Doom",
-    "70": "Ursa",
-    "71": "Spirit Breaker",
-    "72": "Gyrocopter",
-    "73": "Alchemist",
-    "74": "Invoker",
-    "75": "Silencer",
-    "76": "Outworld Devourer",
-    "77": "Lycan",
-    "78": "Brewmaster",
-    "79": "Shadow Demon",
-    "80": "Lone Druid",
-    "81": "Chaos Knight",
-    "82": "Meepo",
-    "83": "Treant Protector",
-    "84": "Ogre Magi",
-    "85": "Undying",
-    "86": "Rubick",
-    "87": "Disruptor",
-    "88": "Nyx Assassin",
-    "89": "Naga Siren",
-    "90": "Keeper of the Light",
-    "91": "Io",
-    "92": "Visage",
-    "93": "Slark",
-    "94": "Medusa",
-    "95": "Troll Warlord",
-    "96": "Centaur Warrunner",
-    "97": "Magnus",
-    "98": "Timbersaw",
-    "99": "Bristleback",
-    "100": "Tusk",
-    "101": "Skywrath Mage",
-    "102": "Abaddon",
-    "103": "Elder Titan",
-    "104": "Legion Commander",
-    "105": "Techies",
-    "106": "Ember Spirit",
-    "107": "Earth Spirit",
-    "108": "Underlord",
-    "109": "Terrorblade",
-    "110": "Phoenix",
-    "111": "Oracle",
-    "112": "Winter Wyvern",
-    "113": "Arc Warden",
-    "114": "Monkey King",
-    "119": "Dark Willow",
-    "120": "Pangolier",
-    "121": "Grimstroke",
-    "126": "Void Spirit",
-    "128": "Snapfire",
-    "129": "Mars"
-  };
+const STORE = {};
+const heroNames = { "1": "Anti-Mage", "2": "Axe", "3": "Bane", "4": "Bloodseeker", "5": "Crystal Maiden", "6": "Drow Ranger", "7": "Earthshaker", "8": "Juggernaut", "9": "Mirana", "10": "Morphling", "11": "Shadow Fiend", "12": "Phantom Lancer", "13": "Puck", "14": "Pudge", "15": "Razor", "16": "Sand King", "17": "Storm Spirit", "18": "Sven", "19": "Tiny", "20": "Vengeful Spirit", "21": "Windranger", "22": "Zeus", "23": "Kunkka", "25": "Lina", "26": "Lion", "27": "Shadow Shaman", "28": "Slardar", "29": "Tidehunter", "30": "Witch Doctor", "31": "Lich", "32": "Riki", "33": "Enigma", "34": "Tinker", "35": "Sniper", "36": "Necrophos", "37": "Warlock", "38": "Beastmaster", "39": "Queen of Pain", "40": "Venomancer", "41": "Faceless Void", "42": "Wraith King", "43": "Death Prophet", "44": "Phantom Assassin", "45": "Pugna", "46": "Templar Assassin", "47": "Viper", "48": "Luna", "49": "Dragon Knight", "50": "Dazzle", "51": "Clockwerk", "52": "Leshrac", "53": "Nature's Prophet", "54": "Lifestealer", "55": "Dark Seer", "56": "Clinkz", "57": "Omniknight", "58": "Enchantress", "59": "Huskar", "60": "Night Stalker", "61": "Broodmother", "62": "Bounty Hunter", "63": "Weaver", "64": "Jakiro", "65": "Batrider", "66": "Chen", "67": "Spectre", "68": "Ancient Apparition", "69": "Doom", "70": "Ursa", "71": "Spirit Breaker", "72": "Gyrocopter", "73": "Alchemist", "74": "Invoker", "75": "Silencer", "76": "Outworld Devourer", "77": "Lycan", "78": "Brewmaster", "79": "Shadow Demon", "80": "Lone Druid", "81": "Chaos Knight", "82": "Meepo", "83": "Treant Protector", "84": "Ogre Magi", "85": "Undying", "86": "Rubick", "87": "Disruptor", "88": "Nyx Assassin", "89": "Naga Siren", "90": "Keeper of the Light", "91": "Io", "92": "Visage", "93": "Slark", "94": "Medusa", "95": "Troll Warlord", "96": "Centaur Warrunner", "97": "Magnus", "98": "Timbersaw", "99": "Bristleback", "100": "Tusk", "101": "Skywrath Mage", "102": "Abaddon", "103": "Elder Titan", "104": "Legion Commander", "105": "Techies", "106": "Ember Spirit", "107": "Earth Spirit", "108": "Underlord", "109": "Terrorblade", "110": "Phoenix", "111": "Oracle", "112": "Winter Wyvern", "113": "Arc Warden", "114": "Monkey King", "119": "Dark Willow", "120": "Pangolier", "121": "Grimstroke", "126": "Void Spirit", "128": "Snapfire", "129": "Mars" };
 const gameModes = ["Unknown", "All Pick", "Captains Mode", "Random Draft", "Single Draft", "All Random", "Intro", "Diretide", "Reverse Captains Mode", "The Greeviling", "Tutorial", "Mid Only", "Least Played", "Limited Heroes", "Compendium", "Custom", "Captains Draft", "Balanced Draft", "Ability Draft", "Event", "All Random Deathmatch", "1v1 Solo Mid", "All Draft", "Turbo", "Mutation"];
 
 function formatDate(date) {
@@ -136,7 +15,7 @@ function formatDate(date) {
     ];
   
     var day = date.getDate();
-    var month = monthNames[date.getMonth()].substring(0,3);
+    var monthIndex = date.getMonth();
     var year = date.getFullYear();
     var hour = date.getHours();
     var minute = date.getMinutes();
@@ -220,25 +99,23 @@ function getPlayerHeroes (accountID) {
     .catch(error => console.log(error));
 }
 
-
-
-
-
 /* -------------------------------------------------------------------------- */
 /*                                    Views                                   */
 /* -------------------------------------------------------------------------- */
 
 function displaySearchResults (data) {
+
+    $('body').css('height', 'auto'); // Remove the 100vh restriction that was set on the landing page
     
     // Filter the search results to provide most recently active players first
     data = data.slice(0, 10);
     data = data.filter(each => each.last_match_time);
-    data.sort((a,b) => {return a.last_match_time < b.last_match_time ? 1 : b.last_match_time < a.last_match_time ? -1 : 0});
+    data.sort((a, b) => {return a.last_match_time < b.last_match_time ? 1 : b.last_match_time < a.last_match_time ? -1 : 0});
 
     let resultsAmount = 3;
     if (data.length < resultsAmount) { // Handle edgecase where there are few results
         resultsAmount = data.length;
-    };
+    }
 
 
 /* ---------------- Put the search bar at the top of the page --------------- */
@@ -246,7 +123,7 @@ function displaySearchResults (data) {
                                 <h5>Dota2 Player Search</h5>
                                 <div>
                                     <label for="player-search">Player Search</label>
-                                    <input type="text" id="player-search" placeholder="try Pete or Dendi or Arteezy" required>
+                                    <input type="text" id="player-search" required>
                                     <button>Go</button>
                                     <p class="error"> </p>
                                 </div>
@@ -291,7 +168,8 @@ function populatePlayerData (data, accountID) {
                                             <td>${data.rank_tier || 'Unranked'}</td>
                                             <td><a href="${data.profile.profileurl}" target="_blank">Link</a></td>
                                         </tr>
-                                    </table>`);
+                                    </table>`
+    );
 }
 
 function populatePlayerRecentMatches (data, accountID) {
@@ -310,7 +188,7 @@ function populatePlayerRecentMatches (data, accountID) {
                                         </table>`
     );
 
-    let matches = ``;
+    let matches = '';
     for (let i = 0; i < 5; i++) {   // The start_time property is formatted in Epoch time
         matches += `<tr class="matchid-${data[i].match_id}">
         <td>${formatDate(new Date(data[i].start_time * 1000))}</td>
@@ -321,7 +199,7 @@ function populatePlayerRecentMatches (data, accountID) {
         <td>${data[i].gold_per_min}</td>
         <td>${data[i].last_hits}</td>
     </tr>`;
-    };
+    }
     $(`.${accountID}-matches-table`).append(matches);
 
     if (data.length > 5) { // Handle edgecase: Less than 5 total matches in history
@@ -339,10 +217,10 @@ function populatePlayerRecentMatches (data, accountID) {
         </tr>`;
         }
 
-        Store[accountID] = showMoreMatches;
+        STORE[accountID] = showMoreMatches;
         $(`.${accountID}-show-more`).on('click', function(){
             $(`.${accountID}-show-more`).remove();
-            $(`.${accountID}-matches-table`).append(Store[accountID]);
+            $(`.${accountID}-matches-table`).append(STORE[accountID]);
         });
 
         $(`.${accountID}-matches`).append(`<button class="${accountID}-show-more">Show More</button>`);
@@ -358,12 +236,12 @@ function populatePlayerRecentMatches (data, accountID) {
         <td>${data[i].assists}</td>
         <td>${data[i].gold_per_min}</td>
         <td>${data[i].last_hits}</td>
-    </tr>`
-    };
-    Store[accountID] = showMoreMatches;
+    </tr>`;
+    }
+    STORE[accountID] = showMoreMatches;
     $(`.${accountID}-show-more`).on('click', function(){
         $(`.${accountID}-show-more`).remove();
-        $(`.${accountID}-matches-table`).append(Store[accountID]);
+        $(`.${accountID}-matches-table`).append(STORE[accountID]);
     });
 
 }
@@ -437,14 +315,13 @@ function populatePlayerHeroes (data, accountID) {
     }
     $(`.${accountID}-weakness-table`).append(worstMatchups);
 
-
 }
 
 /* -------------------------------------------------------------------------- */
 /*                                   Control                                  */
 /* -------------------------------------------------------------------------- */
 
-function addEventListeners () {
+function init () {
     $('body').on('submit', 'form', function(e) {
         e.preventDefault();
         $('#player-search').blur();
@@ -456,4 +333,4 @@ function addEventListeners () {
     $('#player-search').focus();
 };
 
-$(document).ready(addEventListeners());
+$(document).ready(init());
